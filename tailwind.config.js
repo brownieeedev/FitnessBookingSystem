@@ -17,6 +17,7 @@ export default {
         number: "#D5FFAB",
         squareBrackets: "#B67DFE",
         mygray: "D3D8E8",
+        darkgray: "#273036",
       },
       fontFamily: {
         fira: ["Fira Code", "ui-sans-serif", "system-ui"],

@@ -4,9 +4,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 //Components
 import Nav from "./components/nav/Nav";
+import Footer from "./components/footer/Footer";
 import LinearBackground from "./components/linearBackground/LinearBackground";
 //Pages
 import Home from "./pages/Home";
+import GetInTouch from "./pages/GetInTouch";
 
 function App() {
   return (
@@ -25,9 +27,11 @@ function App() {
           />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/getintouch" element={<GetInTouch />} />
           </Routes>
         </div>
       </Router>
+      <Footer />
       <ToastContainer />
     </>
   );
