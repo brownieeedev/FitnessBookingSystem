@@ -9,6 +9,7 @@ import LinearBackground from "./components/linearBackground/LinearBackground";
 //Pages
 import Home from "./pages/Home";
 import GetInTouch from "./pages/GetInTouch";
+import Trainings from "./pages/Trainings";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/getintouch" element={<GetInTouch />} />
+            <Route path="/trainings" element={<Trainings />} />
           </Routes>
         </div>
       </Router>

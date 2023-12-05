@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
+//Packages
+import { twMerge } from "tailwind-merge";
 //Framer
 import { motion } from "framer-motion";
-
 //MUI Icons
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
@@ -10,7 +12,9 @@ type Props = {
   description: string;
   image?: React.ReactNode;
   delay?: number;
-  navigateTo?: string;
+  navigateTo: string;
+  buttonText?: string;
+  className?: string;
 };
 
 export default function HomeCard({
@@ -20,10 +24,19 @@ export default function HomeCard({
   image,
   delay = 0,
   navigateTo,
+  buttonText = "Lets Go",
+  className,
 }: Props) {
+  const navigate = useNavigate();
   const containerStyle = center
-    ? "bg-[#ffffff53] ml-5 mr-5 mt-7 cursor-pointer text-darkgray  w-[300px] h-[450px] sm:w-[230px] sm:h-[355px]"
-    : "bg-[#ffffff53] mt-7 cursor-pointer text-darkgray w-[300px] h-[450px] sm:w-[230px] sm:h-[355px]";
+    ? twMerge(
+        "bg-[#ffffff53] ml-5 mr-5 mt-7 cursor-pointer text-darkgray  w-[300px] h-[450px] sm:w-[230px] sm:h-[355px]",
+        className
+      )
+    : twMerge(
+        "bg-[#ffffff53] mt-7 cursor-pointer text-darkgray w-[300px] h-[450px] sm:w-[230px] sm:h-[355px]",
+        className
+      );
   return (
     <motion.div
       className={containerStyle}
@@ -46,13 +59,14 @@ export default function HomeCard({
           </div>
         </div>
       </div>
-      <div className="group bg-[#18181825] flex font-semibold justify-center items-center h-[70px] sm:h-[65px]">
-        <button
-          onClick={() => {
-            navigate(navigateTo);
-          }}
-        >
-          Lets Go{" "}
+      <div
+        onClick={() => {
+          navigate(navigateTo);
+        }}
+        className="group bg-[#18181825] flex font-semibold justify-center items-center h-[70px] sm:h-[65px]"
+      >
+        <button>
+          {buttonText}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{

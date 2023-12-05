@@ -10,8 +10,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 const inputContainer = "flex flex-col mt-2";
 const errorLabel = "text-red-500 m-1 font-inter font-sm italic";
 const inputFormat =
-  "bg-transparent font-light rounded-xl text-lg mt-1 border border-gray-800 p-3 pl-4";
-const labelFormat = "font-inter font-semibold text-md ml-1";
+  "bg-transparent font-light text-black rounded-xl text-lg mt-1 border border-gray-800 p-3 pl-4";
+const labelFormat = "font-inter text-darkgray font-semibold text-md ml-1";
 //Components
 // import BottomNavigation from "../components/bottomNavigation/BottomNavigation";
 //Fetches
@@ -38,8 +38,8 @@ export default function GetInTouch() {
 
   return (
     <div>
-      <h1 className="font-semibold text-3xl mt-3 font-inter text-center">
-        Feel free to reach out to me!
+      <h1 className="font-semibold text-darkgray text-3xl mt-3 font-inter text-center">
+        Feel free to reach out to us!
       </h1>
       <div className="flex flex-col items-center">
         <Formik
@@ -199,7 +199,7 @@ export default function GetInTouch() {
                 className="w-full flex items-center justify-center mt-5"
               >
                 <button
-                  className="w-full flex items-center justify-center p-3 font-inter font-semibold border border-gray-400 rounded-md  hover:bg-gray-300 hover:text-gray-800 hover:border-gray-800"
+                  className="w-full text-darkgray flex items-center justify-center p-3 font-inter font-semibold border border-darkgray rounded-md  hover:bg-darkgray hover:text-white hover:border-gray-800"
                   type="submit"
                 >
                   SEND EMAIL
