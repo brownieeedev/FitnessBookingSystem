@@ -10,6 +10,8 @@ import LinearBackground from "./components/linearBackground/LinearBackground";
 import Home from "./pages/Home";
 import GetInTouch from "./pages/GetInTouch";
 import Trainings from "./pages/Trainings";
+import Personal from "./pages/Personal";
+import PersonalOnline from "./pages/PersonalOnline";
 
 function App() {
   return (
@@ -30,6 +32,11 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/getintouch" element={<GetInTouch />} />
             <Route path="/trainings" element={<Trainings />} />
+            <Route path="/trainings/personal" element={<Personal />} />
+            <Route
+              path="/trainings/personal/online"
+              element={<PersonalOnline />}
+            />
           </Routes>
         </div>
       </Router>
