@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 //Packages
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AnimatePresence } from "framer-motion";
 //Components
 import Nav from "./components/nav/Nav";
 import Footer from "./components/footer/Footer";
@@ -18,27 +19,29 @@ function App() {
     <>
       <Router>
         <LinearBackground />
-        <div className="max-w-[1250px] m-auto">
-          <Nav
-            tabs={[
-              { name: "Trainings", navigateTo: "/trainings" },
-              { name: "Trainers", navigateTo: "/trainers" },
-              { name: "Videos", navigateTo: "/videos" },
-              { name: "About Us", navigateTo: "/" },
-              { name: "Get in Touch", navigateTo: "/getintouch" },
-            ]}
-          />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/getintouch" element={<GetInTouch />} />
-            <Route path="/trainings" element={<Trainings />} />
-            <Route path="/trainings/personal" element={<Personal />} />
-            <Route
-              path="/trainings/personal/online"
-              element={<PersonalOnline />}
+        <AnimatePresence>
+          <div className="max-w-[1250px] m-auto">
+            <Nav
+              tabs={[
+                { name: "Trainings", navigateTo: "/trainings" },
+                { name: "Trainers", navigateTo: "/trainers" },
+                { name: "Videos", navigateTo: "/videos" },
+                { name: "About Us", navigateTo: "/" },
+                { name: "Get in Touch", navigateTo: "/getintouch" },
+              ]}
             />
-          </Routes>
-        </div>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/getintouch" element={<GetInTouch />} />
+              <Route path="/trainings" element={<Trainings />} />
+              <Route path="/trainings/personal" element={<Personal />} />
+              <Route
+                path="/trainings/personal/online"
+                element={<PersonalOnline />}
+              />
+            </Routes>
+          </div>
+        </AnimatePresence>
       </Router>
       <Footer />
       <ToastContainer />

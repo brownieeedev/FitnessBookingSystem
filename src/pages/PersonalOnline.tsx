@@ -1,10 +1,3 @@
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import Calendar from "react-calendar";
-import DatePicker from "react-date-picker";
-import "react-calendar/dist/Calendar.css";
-import "../components/react-calendar/Sample.css";
-
 //Components
 import TrainerSelect from "../components/trainerSelect/TrainerSelect";
 
@@ -20,33 +13,7 @@ export default function PersonalOnline() {
         <div
           className="mt-8 flex flex-col items-center justify-center" //CHOOSE TRAINER
         >
-          <h2 className="mb-3 text-center font-bold text-2xl">
-            Choose a trainer
-          </h2>
           <TrainerSelect />
-        </div>
-        <div //CHOOSE DATE
-        >
-          <div className="mt-8">
-            <h2 className="text-center font-bold text-2xl">Choose a date</h2>
-          </div>
-          <div className="Sample flex justify-center items-center">
-            <div className="Sample__container">
-              <main className="Sample__container__content">
-                <Calendar
-                  maxDetail="month"
-                  locale="en-GB"
-                  showNavigation={false}
-                  showWeekNumbers={false}
-                  // tileContent={}
-                  minDate={new Date(Date.now())}
-                  onChange={() => {
-                    console.log("changed");
-                  }}
-                />
-              </main>
-            </div>
-          </div>
         </div>
       </div>
     </div>
