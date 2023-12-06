@@ -25,7 +25,7 @@ export default function Confirm({ trainer, date, time }: Props) {
 
   return (
     <div className="w-full">
-      <h2 className="m-4 text-2xl text-center">Confirmation details</h2>
+      <h2 className="m-4 mb-1 text-2xl font-semibold text-center">Details</h2>
       <div className="bg-slate-100 p-8 flex flex-col items-center justify-center">
         <div className="ml-5">
           <p>

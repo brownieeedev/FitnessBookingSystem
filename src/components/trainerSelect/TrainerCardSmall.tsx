@@ -1,6 +1,9 @@
 //Framer
 import { motion } from "framer-motion";
 
+//Mui Icons
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+
 type TrainerProps = {
   name: string;
   delay?: number;
@@ -34,16 +37,19 @@ function TrainerCardSmall({
       }}
       className={
         choosedTrainer === name
-          ? "cursor-pointer m-1 flex flex-col justify-center rounded-xl  bg-[#fff] bg-clip-border text-gray-700 shadow-md w-[200px] h-[250px]"
-          : "cursor-pointer m-1 flex flex-col justify-center rounded-xl  bg-white bg-clip-border text-gray-700 shadow-md w-[200px] h-[250px]"
+          ? "cursor-pointer m-2 flex flex-col justify-between rounded-xl  bg-[#3dff2b4b] bg-clip-border text-gray-700 shadow-md w-[200px] h-[250px]"
+          : "cursor-pointer m-2 flex flex-col justify-between rounded-xl  bg-white bg-clip-border text-gray-700 shadow-md w-[200px] h-[250px]"
       }
     >
+      <div className="flex items-center justify-end">
+        <CheckCircleOutlineIcon sx={{ color: "#fff", fontSize: "32px" }} />
+      </div>
       <div className="flex justify-center">
-        <div className="relative mx-4 mt-4 h-[130px] w-[130px] overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
+        <div className="relative mx-4 mt-4 h-[130px] w-[130px] overflow-hidden rounded-full bg-white bg-clip-border text-gray-700 shadow-lg">
           {image}
         </div>
       </div>
-      <div className="text-center">
+      <div className="text-center mb-">
         <h4 className="mb-1 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
           {name}
         </h4>

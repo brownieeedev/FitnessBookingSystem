@@ -14,6 +14,8 @@ type Props = {
   handleTimeChange: (time: string) => void;
   handleDateChange: (date: Date) => void;
   date: Date | null;
+  choosedTrainer: string;
+  image: React.ReactNode;
 };
 
 export default function ReactCalendar({
@@ -21,12 +23,16 @@ export default function ReactCalendar({
   time,
   handleDateChange,
   date,
+  choosedTrainer,
+  image,
 }: Props) {
   return (
     <div //CHOOSE DATE
     >
-      <div className="mt-8">
-        <h2 className="text-center font-bold text-2xl">Choose a date</h2>
+      <h2 className="text-center font-normal">for training with</h2>
+      <div className="flex flex-col justify-center items-center gap-1 mt-1">
+        <h2 className="text-center text-2xl">{choosedTrainer}</h2>
+        {image}
       </div>
       <div className="flex justify-between">
         <div className="Sample flex justify-center items-center">
@@ -54,7 +60,7 @@ export default function ReactCalendar({
             }}
             className="flex flex-col"
           >
-            <h2>Time</h2>
+            <h2 className="text-center">Time</h2>
             <div>
               <Chip
                 sx={{

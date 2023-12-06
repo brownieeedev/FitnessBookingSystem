@@ -33,7 +33,7 @@ export default function BottomNavigation({
             y: [20, 0],
             transition: { duration: 0.2 },
           }} //Bottom navigation for the mulitstep form
-          className="bottom-0 w-full h-[70px] bg-slate-50"
+          className="bottom-0 w-full h-[70px] bg-slate-100"
         >
           <div className="max-w-[700px] m-auto mt-3 mb-0 flex justify-between items-center text-gray-300 ">
             {previous ? (

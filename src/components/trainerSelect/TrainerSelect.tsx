@@ -9,6 +9,11 @@ import Confirm from "../bookConfirm.tsx/Confirm";
 import TrainerCardSmall from "./TrainerCardSmall";
 
 const numberOfSteps = 3;
+const todoLabels: string[] = [
+  "Choose a trainer",
+  "Choose a date",
+  "Confirmation",
+];
 
 export default function TrainerSelect() {
   const [choosedTrainer, setChoosedTrainer] = useState("");
@@ -53,9 +58,9 @@ export default function TrainerSelect() {
   };
 
   return (
-    <div className="select-none bg-slate-100 font-inter font-bold w-[85%] flex border bg-transparent max-w-[800px] ">
+    <div className="select-none bg-slate-50 font-inter font-bold w-[85%] flex border bg-transparent min-h-[550px] max-w-[1200px] ">
       <div //Sidepanel
-        className="w-[35%] flex items-center justify-center left-0 bg-darkgray h-[100%]"
+        className="w-[35%] h-auto flex items-center justify-center left-0 bg-darkgray"
       >
         <VerticalStepper
           currentStep={page}
@@ -75,7 +80,10 @@ export default function TrainerSelect() {
           ]}
         />
       </div>
-      <div className="flex flex-col w-full justify-between">
+      <div className="relative flex flex-col w-full">
+        <h2 className="text-center m-5 mb-0 text-2xl">
+          {todoLabels[page - 1]}
+        </h2>
         <div className="w-full flex justify-center">
           {/* MAPPING THROUGH TRAINERS HERE */}
 
@@ -88,7 +96,7 @@ export default function TrainerSelect() {
                       displayContactIcons={false}
                       setChoosedTrainer={handleTrainerSelect}
                       choosedTrainer={choosedTrainer}
-                      name="Bubu"
+                      name="Ben"
                       image={
                         <img
                           className="s object-cover w-full h-full "
@@ -104,7 +112,7 @@ export default function TrainerSelect() {
                       name="Sofie"
                       image={
                         <img
-                          className="pr-1 object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="../../src/assets/images/sofie1.png"
                           alt="Sofie"
                         />
@@ -118,7 +126,7 @@ export default function TrainerSelect() {
                       name="John"
                       image={
                         <img
-                          className="pr-1 object-cover w-full h-full"
+                          className="object-cover w-full h-full"
                           src="../../src/assets/images/john1.png"
                           alt="John"
                         />
@@ -136,6 +144,14 @@ export default function TrainerSelect() {
                     time={time}
                     handleDateChange={handleDateChange}
                     date={date}
+                    choosedTrainer={choosedTrainer}
+                    image={
+                      <img
+                        className="object-cover w-[70px] h-[70px] rounded-full"
+                        src="../../src/assets/images/bubu1.png"
+                        alt=""
+                      />
+                    }
                   />
                 );
               case 3:
@@ -145,14 +161,16 @@ export default function TrainerSelect() {
             }
           })()}
         </div>
-        <BottomNavigation
-          handleClick={handleNavigationClick}
-          visible={choosedTrainer !== ""}
-          next={{
-            text: "Next",
-          }}
-          previous={page > 1 ? { text: "Previous" } : undefined}
-        />
+        <div className="absolute w-full flex items-center bottom-0">
+          <BottomNavigation
+            handleClick={handleNavigationClick}
+            visible={choosedTrainer !== ""}
+            next={{
+              text: "Next",
+            }}
+            previous={page > 1 ? { text: "Previous" } : undefined}
+          />
+        </div>
       </div>
     </div>
   );
