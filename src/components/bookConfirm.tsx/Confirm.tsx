@@ -2,6 +2,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
+//MUI Icons
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+
 //Components
 import LoginForm from "../forms/LoginForm";
 
@@ -13,11 +16,11 @@ type Props = {
 
 export default function Confirm({ trainer, date, time }: Props) {
   const [openLogin, setOpenLogin] = useState<boolean>(false);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [isLoggedInNow, setIsLoggedInNow] = useState<boolean>(false);
 
-  const handleCloseLogin = () => {
+  const handleCloseOnSuccessfulLogin = () => {
     setOpenLogin(false);
-    setIsLoggedIn(true);
+    setIsLoggedInNow(true);
   };
 
   return (
@@ -48,8 +51,28 @@ export default function Confirm({ trainer, date, time }: Props) {
           className="mt-2"
         >
           <div className="flex flex-col justify-center items-center">
-            <LoginForm handleCloseLogin={handleCloseLogin} />
+            <LoginForm handleCloseLogin={handleCloseOnSuccessfulLogin} />
           </div>
+        </motion.div>
+      ) : isLoggedInNow ? (
+        <motion.div
+          initial={{
+            opacity: 0,
+            x: 100,
+          }}
+          animate={{
+            opacity: 1,
+            x: 0,
+            transition: { duration: 0.2 },
+          }}
+          className="mt-7 flex flex-col items-center"
+        >
+          <p className="text-center text-2xl font-normal text-[#47af3e]">
+            Successfully logged in!
+          </p>
+          <CheckCircleOutlineIcon
+            sx={{ color: "#47af3e", fontSize: "100px" }}
+          />
         </motion.div>
       ) : (
         <AnimatePresence>

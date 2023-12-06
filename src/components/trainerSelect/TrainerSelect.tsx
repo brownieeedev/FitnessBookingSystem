@@ -6,6 +6,7 @@ import BottomNavigation from "../bottomNavigation/BottomNavigation";
 import VerticalStepper from "../verticalStepper/VerticalStepper";
 import ReactCalendar from "../react-calendar/ReactCalendar";
 import Confirm from "../bookConfirm.tsx/Confirm";
+import TrainerCardSmall from "./TrainerCardSmall";
 
 const numberOfSteps = 3;
 
@@ -52,7 +53,7 @@ export default function TrainerSelect() {
   };
 
   return (
-    <div className="select-none font-inter font-bold w-[85%] flex border bg-transparent max-w-[800px] h-[500px]">
+    <div className="select-none bg-slate-100 font-inter font-bold w-[85%] flex border bg-transparent max-w-[800px] ">
       <div //Sidepanel
         className="w-[35%] flex items-center justify-center left-0 bg-darkgray h-[100%]"
       >
@@ -83,19 +84,21 @@ export default function TrainerSelect() {
               case 1:
                 return (
                   <div className="flex flex-wrap">
-                    <TrainerCard
+                    <TrainerCardSmall
+                      displayContactIcons={false}
                       setChoosedTrainer={handleTrainerSelect}
                       choosedTrainer={choosedTrainer}
                       name="Bubu"
                       image={
                         <img
-                          className="s object-cover w-full h-full rounded-full"
+                          className="s object-cover w-full h-full "
                           src="../../src/assets/images/bubu1.png"
                           alt="Sofie"
                         />
                       }
                     />
-                    <TrainerCard
+                    <TrainerCardSmall
+                      displayContactIcons={false}
                       setChoosedTrainer={handleTrainerSelect}
                       choosedTrainer={choosedTrainer}
                       name="Sofie"
@@ -108,13 +111,14 @@ export default function TrainerSelect() {
                       }
                       delay={0.2}
                     />
-                    <TrainerCard
+                    <TrainerCardSmall
+                      displayContactIcons={false}
                       setChoosedTrainer={handleTrainerSelect}
                       choosedTrainer={choosedTrainer}
                       name="John"
                       image={
                         <img
-                          className="pr-1 object-cover w-full h-full rounded-full"
+                          className="pr-1 object-cover w-full h-full"
                           src="../../src/assets/images/john1.png"
                           alt="John"
                         />

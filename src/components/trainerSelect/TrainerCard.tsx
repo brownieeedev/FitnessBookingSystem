@@ -33,7 +33,7 @@ export default function TrainerCard({
       className={
         choosedTrainer === name
           ? "rounded-sm cursor-pointer flex flex-col justify-center w-[170px] h-[200px] items-center m-2 bg-green-200"
-          : "rounded-sm cursor-pointer flex flex-col justify-center w-[170px] h-[200px] items-center m-2 bg-gray-300"
+          : "rounded-sm cursor-pointer flex flex-col justify-center w-[170px] h-[200px] items-center m-2 bg-slate-300"
       }
     >
       <div className="w-[100px] h-[100px] rounded-full border-[2px] border-black">

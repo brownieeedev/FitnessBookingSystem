@@ -13,6 +13,7 @@ import GetInTouch from "./pages/GetInTouch";
 import Trainings from "./pages/Trainings";
 import Personal from "./pages/Personal";
 import PersonalOnline from "./pages/PersonalOnline";
+import Trainers from "./pages/Trainers";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/getintouch" element={<GetInTouch />} />
+              <Route path="/trainers" element={<Trainers />} />
               <Route path="/trainings" element={<Trainings />} />
               <Route path="/trainings/personal" element={<Personal />} />
               <Route
