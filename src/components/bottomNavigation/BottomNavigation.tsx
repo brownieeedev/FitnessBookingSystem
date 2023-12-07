@@ -7,7 +7,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { motion } from "framer-motion";
 
 //Redux
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useAppSelector } from "../../redux/hooks";
 
 type ButtonProps = {
   text: string;
@@ -28,7 +28,6 @@ export default function BottomNavigation({
   //Redux states
   const next = useAppSelector((state) => state.bottomNav.next);
   const previous = useAppSelector((state) => state.bottomNav.previous);
-  const dispatch = useAppDispatch();
   return (
     <>
       {next === true || previous === true ? (

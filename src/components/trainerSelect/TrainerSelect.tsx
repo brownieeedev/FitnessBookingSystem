@@ -25,17 +25,20 @@ const todoLabels: string[] = [
 ];
 
 export default function TrainerSelect() {
+  //Mount
+  useEffect(() => {
+    dispatch(disablePrevious());
+    dispatch(disableNext());
+  }, []);
+
   //Redux states
-  const next = useAppSelector((state) => state.bottomNav.next);
-  const previous = useAppSelector((state) => state.bottomNav.previous);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const dispatch = useAppDispatch();
   //States
   const [choosedTrainer, setChoosedTrainer] = useState("");
   const [page, setPage] = useState<number>(1);
   const [date, setDate] = useState<Date | null>(null);
   const [time, setTime] = useState<string>("");
-  const [nextBtnText, setNextBtnText] = useState<string>("Next");
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   console.log(page);
   console.log(choosedTrainer);
@@ -61,7 +64,6 @@ export default function TrainerSelect() {
       setPage((prev) => prev + 1);
     } else if (direction === "previous") {
       if (page === 1) return;
-      setNextBtnText("Next");
       setPage((prev) => prev - 1);
     }
   };
@@ -90,11 +92,10 @@ export default function TrainerSelect() {
     } else if (page === 3) {
       dispatch(disableNext());
       if (isLoggedIn) {
-        setNextBtnText("Confirm");
         dispatch(allowNext());
       }
     }
-  }, [page, choosedTrainer, date, time]);
+  }, [page, choosedTrainer, date, time, isLoggedIn]);
 
   return (
     <div className="select-none bg-slate-50 font-inter font-bold w-[85%] flex border bg-transparent min-h-[800px]  max-w-[1200px] ">
@@ -119,7 +120,7 @@ export default function TrainerSelect() {
           ]}
         />
       </div>
-      <div className="relative overflow-y-scroll bg-slate-50 flex flex-col w-full">
+      <div className="relative  bg-slate-100 flex flex-col w-full">
         <h2 className="text-center m-5 mb-0 text-2xl">
           {todoLabels[page - 1]}
         </h2>
@@ -217,7 +218,7 @@ export default function TrainerSelect() {
           <BottomNavigation
             handleClick={handleNavigationClick}
             nextBtn={{
-              text: nextBtnText,
+              text: page === 3 && isLoggedIn ? "Confirm" : "Next",
             }}
             previousBtn={{ text: "Back" }}
           />

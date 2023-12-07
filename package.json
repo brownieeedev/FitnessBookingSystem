@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "proxy": "http://localhost:5001",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -17,6 +18,7 @@
     "@mui/material": "^5.14.19",
     "@reduxjs/toolkit": "^2.0.1",
     "@types/react-redux": "^7.1.32",
+    "axios": "^1.6.2",
     "dayjs": "^1.11.10",
     "formik": "^2.4.5",
     "framer-motion": "^10.16.12",

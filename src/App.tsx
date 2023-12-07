@@ -15,6 +15,7 @@ import Trainings from "./pages/Trainings";
 import Personal from "./pages/Personal";
 import PersonalOnline from "./pages/PersonalOnline";
 import Trainers from "./pages/Trainers";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
@@ -30,8 +31,8 @@ function App() {
                   { name: "Trainers", navigateTo: "/trainers" },
                   { name: "Videos", navigateTo: "/videos" },
                   { name: "About Us", navigateTo: "/" },
-                  { name: "Calendar", navigateTo: "/calendar" },
                   { name: "Get in Touch", navigateTo: "/getintouch" },
+                  { name: "Login", navigateTo: "/login" },
                 ]}
               />
               <Routes>
@@ -44,6 +45,7 @@ function App() {
                   path="/trainings/personal/online"
                   element={<PersonalOnline />}
                 />
+                <Route path="/login" element={<LoginPage />} />
               </Routes>
             </div>
           </AnimatePresence>

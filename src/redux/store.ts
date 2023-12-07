@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 
 //Reducers
 import bottomNavReducer from "./slices/bottomNavigationSlice";
+import authReducer from "./slices/authSlice";
 
 export const store = configureStore({
   reducer: {
     bottomNav: bottomNavReducer,
+    auth: authReducer,
   },
 });
 

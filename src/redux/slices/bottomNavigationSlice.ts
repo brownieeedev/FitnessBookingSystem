@@ -15,7 +15,7 @@ const initialState: NavigationState = {
 };
 
 export const bottomNavigationSlice = createSlice({
-  name: "counter",
+  name: "bottomNavigation",
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
