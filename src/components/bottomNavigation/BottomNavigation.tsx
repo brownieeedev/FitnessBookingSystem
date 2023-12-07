@@ -6,27 +6,32 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 //Framer
 import { motion } from "framer-motion";
 
+//Redux
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+
 type ButtonProps = {
   text: string;
   navigateTo?: string;
 };
 
 type Props = {
-  next?: ButtonProps;
-  previous?: ButtonProps;
-  visible?: boolean;
+  nextBtn: ButtonProps;
+  previousBtn: ButtonProps;
   handleClick: (direction: string) => void;
 };
 
 export default function BottomNavigation({
-  next,
-  previous,
-  visible = false,
+  nextBtn,
+  previousBtn,
   handleClick,
 }: Props) {
+  //Redux states
+  const next = useAppSelector((state) => state.bottomNav.next);
+  const previous = useAppSelector((state) => state.bottomNav.previous);
+  const dispatch = useAppDispatch();
   return (
     <>
-      {visible ? (
+      {next === true || previous === true ? (
         <motion.div
           animate={{
             opacity: [0, 1],
@@ -43,7 +48,7 @@ export default function BottomNavigation({
                 }}
                 className="flex items-center font-inter bg-blue-500 text-white p-4 pt-2 pb-2 rounded-full ml-3 hover:bg-opacity-80  font-semibold tracking-wide mr-auto text-lg"
               >
-                <ArrowBackIcon /> {previous?.text}
+                <ArrowBackIcon /> {previousBtn.text}
               </button>
             ) : null}
             {next ? (
@@ -53,7 +58,7 @@ export default function BottomNavigation({
                 }}
                 className="flex items-center  font-inter bg-blue-500 text-white p-4 pt-2 pb-2 rounded-full mr-3 hover:bg-opacity-80  font-semibold tracking-wide ml-auto text-lg"
               >
-                {next?.text} <ArrowForwardIcon />
+                {nextBtn.text} <ArrowForwardIcon />
               </button>
             ) : null}
           </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 //Components
 import BottomNavigation from "../bottomNavigation/BottomNavigation";
@@ -6,6 +6,17 @@ import VerticalStepper from "../verticalStepper/VerticalStepper";
 import Confirm from "../bookConfirm.tsx/Confirm";
 import TrainerCardSmall from "./TrainerCardSmall";
 import CalendarPage from "../calendar/CalendarPage";
+
+//Redux
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import {
+  allowNext,
+  allowPrevious,
+  disableNext,
+  disablePrevious,
+} from "../../redux/slices/bottomNavigationSlice";
+
+//Variables
 const numberOfSteps = 3;
 const todoLabels: string[] = [
   "Choose a trainer",
@@ -14,10 +25,17 @@ const todoLabels: string[] = [
 ];
 
 export default function TrainerSelect() {
+  //Redux states
+  const next = useAppSelector((state) => state.bottomNav.next);
+  const previous = useAppSelector((state) => state.bottomNav.previous);
+  const dispatch = useAppDispatch();
+  //States
   const [choosedTrainer, setChoosedTrainer] = useState("");
   const [page, setPage] = useState<number>(1);
   const [date, setDate] = useState<Date | null>(null);
   const [time, setTime] = useState<string>("");
+  const [nextBtnText, setNextBtnText] = useState<string>("Next");
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   console.log(page);
   console.log(choosedTrainer);
@@ -43,6 +61,7 @@ export default function TrainerSelect() {
       setPage((prev) => prev + 1);
     } else if (direction === "previous") {
       if (page === 1) return;
+      setNextBtnText("Next");
       setPage((prev) => prev - 1);
     }
   };
@@ -54,6 +73,28 @@ export default function TrainerSelect() {
   const handleDateChange = (date: Date): void => {
     setDate(date);
   };
+
+  //Handling bottom navigation
+  useEffect(() => {
+    if (page === 1) {
+      dispatch(disablePrevious());
+      if (choosedTrainer !== "") {
+        dispatch(allowNext());
+      }
+    } else if (page === 2) {
+      dispatch(allowPrevious());
+      dispatch(disableNext());
+      if (date !== null && time !== "") {
+        dispatch(allowNext());
+      }
+    } else if (page === 3) {
+      dispatch(disableNext());
+      if (isLoggedIn) {
+        setNextBtnText("Confirm");
+        dispatch(allowNext());
+      }
+    }
+  }, [page, choosedTrainer, date, time]);
 
   return (
     <div className="select-none bg-slate-50 font-inter font-bold w-[85%] flex border bg-transparent min-h-[800px]  max-w-[1200px] ">
@@ -164,20 +205,6 @@ export default function TrainerSelect() {
                       />
                     }
                   />
-                  // <ReactCalendar
-                  //   handleTimeChange={handleTimeChange}
-                  //   time={time}
-                  //   handleDateChange={handleDateChange}
-                  //   date={date}
-                  //   choosedTrainer={choosedTrainer}
-                  //   image={
-                  //     <img
-                  //       className="object-cover w-[70px] h-[70px] rounded-full"
-                  //       src="../../src/assets/images/bubu1.png"
-                  //       alt=""
-                  //     />
-                  //   }
-                  // />
                 );
               case 3:
                 return (
@@ -189,11 +216,10 @@ export default function TrainerSelect() {
         <div className="absolute w-full flex items-center bottom-0">
           <BottomNavigation
             handleClick={handleNavigationClick}
-            visible={choosedTrainer !== ""}
-            next={{
-              text: "Next",
+            nextBtn={{
+              text: nextBtnText,
             }}
-            previous={page > 1 ? { text: "Previous" } : undefined}
+            previousBtn={{ text: "Back" }}
           />
         </div>
       </div>

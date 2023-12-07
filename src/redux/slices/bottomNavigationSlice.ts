@@ -10,7 +10,7 @@ type NavigationState = {
 
 // Define the initial state using that type
 const initialState: NavigationState = {
-  next: true,
+  next: false,
   previous: false,
 };
 
