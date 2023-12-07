@@ -1,13 +1,11 @@
 import { useState } from "react";
 
 //Components
-import TrainerCard from "./TrainerCard";
 import BottomNavigation from "../bottomNavigation/BottomNavigation";
 import VerticalStepper from "../verticalStepper/VerticalStepper";
-import ReactCalendar from "../react-calendar/ReactCalendar";
 import Confirm from "../bookConfirm.tsx/Confirm";
 import TrainerCardSmall from "./TrainerCardSmall";
-
+import CalendarPage from "../calendar/CalendarPage";
 const numberOfSteps = 3;
 const todoLabels: string[] = [
   "Choose a trainer",
@@ -58,7 +56,7 @@ export default function TrainerSelect() {
   };
 
   return (
-    <div className="select-none bg-slate-50 font-inter font-bold w-[85%] flex border bg-transparent min-h-[550px] max-w-[1200px] ">
+    <div className="select-none bg-slate-50 font-inter font-bold w-[85%] flex border bg-transparent min-h-[800px]  max-w-[1200px] ">
       <div //Sidepanel
         className="w-[35%] h-auto flex items-center justify-center left-0 bg-darkgray"
       >
@@ -80,13 +78,12 @@ export default function TrainerSelect() {
           ]}
         />
       </div>
-      <div className="relative flex flex-col w-full">
+      <div className="relative overflow-y-scroll bg-slate-50 flex flex-col w-full">
         <h2 className="text-center m-5 mb-0 text-2xl">
           {todoLabels[page - 1]}
         </h2>
         <div className="w-full flex justify-center">
           {/* MAPPING THROUGH TRAINERS HERE */}
-
           {(() => {
             switch (page) {
               case 1:
@@ -133,13 +130,27 @@ export default function TrainerSelect() {
                       }
                       delay={0.4}
                     />
+                    <TrainerCardSmall
+                      displayContactIcons={false}
+                      setChoosedTrainer={handleTrainerSelect}
+                      choosedTrainer={choosedTrainer}
+                      name="Johny"
+                      image={
+                        <img
+                          className="object-cover w-full h-full"
+                          src="../../src/assets/images/john1.png"
+                          alt="John"
+                        />
+                      }
+                      delay={0.6}
+                    />
                   </div>
                 );
               //   default:
               //     return null;
               case 2:
                 return (
-                  <ReactCalendar
+                  <CalendarPage
                     handleTimeChange={handleTimeChange}
                     time={time}
                     handleDateChange={handleDateChange}
@@ -153,6 +164,20 @@ export default function TrainerSelect() {
                       />
                     }
                   />
+                  // <ReactCalendar
+                  //   handleTimeChange={handleTimeChange}
+                  //   time={time}
+                  //   handleDateChange={handleDateChange}
+                  //   date={date}
+                  //   choosedTrainer={choosedTrainer}
+                  //   image={
+                  //     <img
+                  //       className="object-cover w-[70px] h-[70px] rounded-full"
+                  //       src="../../src/assets/images/bubu1.png"
+                  //       alt=""
+                  //     />
+                  //   }
+                  // />
                 );
               case 3:
                 return (

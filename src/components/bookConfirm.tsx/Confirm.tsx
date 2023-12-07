@@ -5,6 +5,9 @@ import { useState } from "react";
 //MUI Icons
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
+//Packages
+import dayjs from "dayjs";
+
 //Components
 import LoginForm from "../forms/LoginForm";
 
@@ -33,7 +36,7 @@ export default function Confirm({ trainer, date, time }: Props) {
           </p>
           <p>
             <span className="font-normal font-nunito">Date:</span>{" "}
-            {date?.toLocaleDateString()}
+            {dayjs(date).format("YYYY.MM.DD")}
           </p>
           <p>
             <span className="font-normal font-nunito">Time:</span> {time}

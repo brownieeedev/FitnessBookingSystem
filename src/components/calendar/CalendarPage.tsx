@@ -1,27 +1,21 @@
+import React from "react";
 //Framer
 import { motion } from "framer-motion";
-
-//MUI
+//Components
+import PrimeCalendar from "./PrimeCalendar";
+//Mui
 import Chip from "@mui/material/Chip";
 
-//ReactCalendar
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
-import "./Sample.css";
-
-//Packages
-import dayjs from "dayjs";
-
 type Props = {
-  time: string;
-  handleTimeChange: (time: string) => void;
-  handleDateChange: (date: string) => void;
-  date: string | null;
   choosedTrainer: string;
   image: React.ReactNode;
+  time: string;
+  handleTimeChange: (time: string) => void;
+  handleDateChange: (date: Date) => void;
+  date: Date | null;
 };
 
-export default function ReactCalendar({
+function CalendarPage({
   handleTimeChange,
   time,
   handleDateChange,
@@ -30,35 +24,14 @@ export default function ReactCalendar({
   image,
 }: Props) {
   return (
-    <div //CHOOSE DATE
-    >
+    <div>
       <h2 className="text-center font-normal">for training with</h2>
       <div className="flex flex-col justify-center items-center gap-1 mt-1">
         <h2 className="text-center text-2xl">{choosedTrainer}</h2>
         {image}
       </div>
-      <div className="flex justify-between">
-        <div className="Sample flex justify-center items-center">
-          <div className="Sample__container">
-            <main className="Sample__container__content">
-              <Calendar
-                maxDetail="month"
-                locale="en-GB"
-                showNavigation={false}
-                showWeekNumbers={false}
-                value={date}
-                // tileContent={}
-                formatDay={(locale, date) => dayjs(date).format("D")}
-                minDate={new Date(Date.now())}
-                onChange={(e) => {
-                  handleDateChange(
-                    dayjs(e as Date).format("YYYY.MM.DD") as any
-                  );
-                }}
-              />
-            </main>
-          </div>
-        </div>
+      <div className="m-4 flex justify-between">
+        <PrimeCalendar handleDateChange={handleDateChange} date={date} />
         {date ? (
           <motion.div
             animate={{
@@ -72,6 +45,8 @@ export default function ReactCalendar({
               <Chip
                 sx={{
                   cursor: "pointer",
+                  fontSize: "16px",
+                  padding: "6px 3px",
                   m: "4px",
                 }}
                 label="10:00"
@@ -83,6 +58,8 @@ export default function ReactCalendar({
               <Chip
                 sx={{
                   cursor: "pointer",
+                  fontSize: "16px",
+                  padding: "6px 3px",
                   m: "4px",
                 }}
                 label="11:00"
@@ -94,6 +71,8 @@ export default function ReactCalendar({
               <Chip
                 sx={{
                   cursor: "pointer",
+                  fontSize: "16px",
+                  padding: "6px 3px",
                   m: "4px",
                 }}
                 label="13:00"
@@ -105,6 +84,8 @@ export default function ReactCalendar({
               <Chip
                 sx={{
                   cursor: "pointer",
+                  fontSize: "16px",
+                  padding: "6px 3px",
                   m: "4px",
                 }}
                 label="17:00"
@@ -120,3 +101,5 @@ export default function ReactCalendar({
     </div>
   );
 }
+
+export default CalendarPage;

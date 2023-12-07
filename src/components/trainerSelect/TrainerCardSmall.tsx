@@ -41,7 +41,7 @@ function TrainerCardSmall({
           : "cursor-pointer m-2 flex flex-col justify-between rounded-xl  bg-white bg-clip-border text-gray-700 shadow-md w-[200px] h-[250px]"
       }
     >
-      <div className="flex items-center justify-end">
+      <div className="flex  items-center justify-end">
         <CheckCircleOutlineIcon sx={{ color: "#fff", fontSize: "32px" }} />
       </div>
       <div className="flex justify-center">
