@@ -10,6 +10,7 @@ import { useMount } from "../../hooks/useMount";
 import { toastError } from "../../utils/toasts";
 import { axiosGet, axiosPost } from "../../utils/axiosFetches";
 import { LOCAL_URL } from "../../utils/urls";
+import { jwtInterceptor } from "../../utils/jwtInterceptor";
 //Redux
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import {
@@ -74,7 +75,7 @@ export default function TrainerSelect() {
     }
     // dispatch(disablePrevious());
     // dispatch(disableNext());
-
+    jwtInterceptor();
     const res = await axiosPost(`${LOCAL_URL}/api/booking/book`, {
       trainer: choosedTrainer._id,
       date,
