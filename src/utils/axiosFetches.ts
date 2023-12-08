@@ -12,7 +12,7 @@ export const axiosPost = async (url: string, data: object) => {
   return response.data;
 };
 
-export const axiosPostWithTryCatch = async (
+export const axiosPostLoginAndSignup = async (
   url: string,
   data: object,
   log: boolean = false,
@@ -24,14 +24,14 @@ export const axiosPostWithTryCatch = async (
     if (log) {
       console.log("RESPONSE: ", res);
     }
-    if (res.data.message) {
-      alert("inside success");
-      successToast(res.data.message);
+    if (res.message) {
+      successToast(res.message);
     } else {
       successToast(successMessage);
     }
     return res;
   } catch (error: any) {
+    console.log(error);
     if (error.response.data.message) {
       errorToast(error.response.data.message);
     } else {

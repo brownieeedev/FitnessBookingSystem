@@ -16,6 +16,7 @@ import Personal from "./pages/Personal";
 import PersonalOnline from "./pages/PersonalOnline";
 import Trainers from "./pages/Trainers";
 import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
 
 function App() {
   return (
@@ -41,11 +42,15 @@ function App() {
                 <Route path="/trainers" element={<Trainers />} />
                 <Route path="/trainings" element={<Trainings />} />
                 <Route path="/trainings/personal" element={<Personal />} />
+                <Route path="/signup" element={<SignUpPage />} />
                 <Route
                   path="/trainings/personal/online"
                   element={<PersonalOnline />}
                 />
-                <Route path="/login" element={<LoginPage />} />
+                <Route
+                  path="/login"
+                  element={<LoginPage companyName="LondonFitness" />}
+                />
               </Routes>
             </div>
           </AnimatePresence>

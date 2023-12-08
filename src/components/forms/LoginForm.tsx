@@ -9,7 +9,7 @@ import { useAppDispatch } from "../../redux/hooks";
 import { login } from "../../redux/slices/authSlice";
 
 //Utils
-import { axiosPostWithTryCatch } from "../../utils/axiosFetches";
+import { axiosPostLoginAndSignup } from "../../utils/axiosFetches";
 import { LOCAL_URL } from "../../utils/urls";
 
 type Props = {
@@ -44,7 +44,7 @@ export default function LoginForm({
       })}
       onSubmit={async (values, actions) => {
         //fetch
-        const res = await axiosPostWithTryCatch(
+        const res = await axiosPostLoginAndSignup(
           backendRoute,
           values,
           true,
