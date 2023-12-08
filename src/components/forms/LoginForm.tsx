@@ -18,6 +18,7 @@ type Props = {
   displayLabels?: boolean;
   btnText?: string;
   backendRoute: string;
+  enableNavigate?: boolean;
 };
 
 export default function LoginForm({
@@ -25,6 +26,7 @@ export default function LoginForm({
   displayLabels = true,
   btnText = "Login",
   backendRoute,
+  enableNavigate = true,
 }: Props) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -58,7 +60,7 @@ export default function LoginForm({
           localStorage.setItem("token", res.token);
           dispatch(login());
         }
-        if (res.navigateTo) navigate(res.navigateTo);
+        if (enableNavigate && res.navigateTo) navigate(res.navigateTo);
       }}
     >
       {(formik) => (

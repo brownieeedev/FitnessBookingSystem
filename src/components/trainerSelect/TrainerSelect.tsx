@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
-
 //Components
 import BottomNavigation from "../bottomNavigation/BottomNavigation";
 import VerticalStepper from "../verticalStepper/VerticalStepper";
 import Confirm from "../bookConfirm.tsx/Confirm";
 import TrainerCardSmall from "./TrainerCardSmall";
 import CalendarPage from "../calendar/CalendarPage";
-
+//Utils
+import { useMount } from "../../hooks/useMount";
+import { toastError } from "../../utils/toasts";
+import { axiosGet, axiosPost } from "../../utils/axiosFetches";
+import { LOCAL_URL } from "../../utils/urls";
 //Redux
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import {
@@ -15,7 +18,8 @@ import {
   disableNext,
   disablePrevious,
 } from "../../redux/slices/bottomNavigationSlice";
-
+//Types
+import { TrainerType } from "../../types/TrainerType";
 //Variables
 const numberOfSteps = 3;
 const todoLabels: string[] = [
@@ -25,20 +29,29 @@ const todoLabels: string[] = [
 ];
 
 export default function TrainerSelect() {
-  //Mount
-  useEffect(() => {
-    dispatch(disablePrevious());
-    dispatch(disableNext());
-  }, []);
-
   //Redux states
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const dispatch = useAppDispatch();
   //States
-  const [choosedTrainer, setChoosedTrainer] = useState("");
+  const [choosedTrainer, setChoosedTrainer] = useState<TrainerType>();
   const [page, setPage] = useState<number>(1);
   const [date, setDate] = useState<Date | null>(null);
   const [time, setTime] = useState<string>("");
+
+  const [trainers, setTrainers] = useState<TrainerType[]>([]);
+
+  useMount(async () => {
+    dispatch(disablePrevious());
+    dispatch(disableNext());
+    try {
+      const res = await axiosGet(`${LOCAL_URL}/api/trainers/alltrainers`);
+      setTrainers(res.data);
+    } catch (err: any) {
+      if (err.response.message) toastError(err.response.message);
+      toastError("Something went wrong!");
+      console.error(err);
+    }
+  });
 
   // console.log(page);
   // console.log(choosedTrainer);
@@ -46,13 +59,29 @@ export default function TrainerSelect() {
   // console.log(time);
 
   const handleTrainerSelect = (name: string): void => {
-    setChoosedTrainer(name);
+    const choosedTrainer = trainers.find(
+      (trainer) => trainer.firstname === name
+    );
+    setChoosedTrainer(choosedTrainer);
     setTime("");
     setDate(null);
   };
 
-  const handleConfirm = () => {
-    alert("Confirmed!");
+  const handleConfirm = async () => {
+    if (!isLoggedIn || !date || !time || !choosedTrainer) {
+      toastError("Something went wrong!");
+      return;
+    }
+    // dispatch(disablePrevious());
+    // dispatch(disableNext());
+
+    const res = await axiosPost(`${LOCAL_URL}/api/booking/book`, {
+      trainer: choosedTrainer._id,
+      date,
+      time,
+      trainingType: "online",
+    });
+    console.log(res);
   };
 
   const handleNavigationClick = (direction: string): void => {
@@ -80,7 +109,7 @@ export default function TrainerSelect() {
   useEffect(() => {
     if (page === 1) {
       dispatch(disablePrevious());
-      if (choosedTrainer !== "") {
+      if (choosedTrainer?.firstname !== "") {
         dispatch(allowNext());
       }
     } else if (page === 2) {
@@ -129,87 +158,38 @@ export default function TrainerSelect() {
           {(() => {
             switch (page) {
               case 1:
-                return (
-                  <div className="flex flex-wrap">
+                return trainers.map((trainer, index) => (
+                  <div key={index} className="flex flex-wrap">
                     <TrainerCardSmall
                       displayContactIcons={false}
                       setChoosedTrainer={handleTrainerSelect}
                       choosedTrainer={choosedTrainer}
-                      name="Ben"
+                      name={trainer.firstname}
+                      delay={index * 0.2}
                       image={
                         <img
                           className="s object-cover w-full h-full "
-                          src="../../src/assets/images/bubu1.png"
-                          alt="Sofie"
+                          src={trainer.profilePicture}
+                          alt="trainerpicture"
                         />
                       }
-                    />
-                    <TrainerCardSmall
-                      displayContactIcons={false}
-                      setChoosedTrainer={handleTrainerSelect}
-                      choosedTrainer={choosedTrainer}
-                      name="Sofie"
-                      image={
-                        <img
-                          className="object-cover w-full h-full rounded-full"
-                          src="../../src/assets/images/sofie1.png"
-                          alt="Sofie"
-                        />
-                      }
-                      delay={0.2}
-                    />
-                    <TrainerCardSmall
-                      displayContactIcons={false}
-                      setChoosedTrainer={handleTrainerSelect}
-                      choosedTrainer={choosedTrainer}
-                      name="John"
-                      image={
-                        <img
-                          className="object-cover w-full h-full"
-                          src="../../src/assets/images/john1.png"
-                          alt="John"
-                        />
-                      }
-                      delay={0.4}
-                    />
-                    <TrainerCardSmall
-                      displayContactIcons={false}
-                      setChoosedTrainer={handleTrainerSelect}
-                      choosedTrainer={choosedTrainer}
-                      name="Johny"
-                      image={
-                        <img
-                          className="object-cover w-full h-full"
-                          src="../../src/assets/images/john1.png"
-                          alt="John"
-                        />
-                      }
-                      delay={0.6}
                     />
                   </div>
-                );
-              //   default:
-              //     return null;
+                ));
               case 2:
                 return (
                   <CalendarPage
                     handleTimeChange={handleTimeChange}
-                    time={time}
+                    choosedTime={time}
                     handleDateChange={handleDateChange}
                     date={date}
-                    choosedTrainer={choosedTrainer}
-                    image={
-                      <img
-                        className="object-cover w-[70px] h-[70px] rounded-full"
-                        src="../../src/assets/images/bubu1.png"
-                        alt=""
-                      />
-                    }
+                    choosedTrainer={choosedTrainer!}
+                    image={choosedTrainer?.profilePicture!}
                   />
                 );
               case 3:
                 return (
-                  <Confirm trainer={choosedTrainer} date={date} time={time} />
+                  <Confirm trainer={choosedTrainer!} date={date} time={time} />
                 );
             }
           })()}

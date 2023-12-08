@@ -9,3 +9,21 @@ export type ShortTrainerType = {
   links: Links[];
   profilePicture: string;
 };
+
+type AvailableTime = {
+  day: string;
+  times: string[];
+};
+
+export type TrainerType = {
+  _id: string;
+  firstname: string;
+  lastname?: string;
+  available: AvailableTime[];
+  introduction: string;
+  profilePicture?: string;
+  introVideo?: string;
+  trainingTypes?: string[];
+  places: string[];
+  links: Links[];
+};

@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-export const errorToast = (errorMessage: string): React.ReactNode => {
+export const toastError = (errorMessage: string): React.ReactNode => {
   return toast.error(errorMessage, {
     theme: "dark",
     autoClose: 3000,
@@ -9,7 +9,7 @@ export const errorToast = (errorMessage: string): React.ReactNode => {
   });
 };
 
-export const successToast = (successMessage: string): React.ReactNode => {
+export const toastSuccess = (successMessage: string): React.ReactNode => {
   return toast.success(successMessage, {
     theme: "dark",
     autoClose: 4000,

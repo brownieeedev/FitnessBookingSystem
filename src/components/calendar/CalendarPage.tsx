@@ -1,15 +1,19 @@
-import React from "react";
 //Framer
 import { motion } from "framer-motion";
 //Components
 import PrimeCalendar from "./PrimeCalendar";
 //Mui
 import Chip from "@mui/material/Chip";
+//Packages
+import dayjs from "dayjs";
+//Types
+import { TrainerType } from "../../types/TrainerType";
+import { useEffect, useState } from "react";
 
 type Props = {
-  choosedTrainer: string;
-  image: React.ReactNode;
-  time: string;
+  choosedTrainer: TrainerType;
+  image: string;
+  choosedTime: string;
   handleTimeChange: (time: string) => void;
   handleDateChange: (date: Date) => void;
   date: Date | null;
@@ -17,20 +21,32 @@ type Props = {
 
 function CalendarPage({
   handleTimeChange,
-  time,
+  choosedTime,
   handleDateChange,
   date,
   choosedTrainer,
   image,
 }: Props) {
+  const [dateString, setDateString] = useState<string>("");
+
+  useEffect(() => {
+    if (date) {
+      setDateString(dayjs(date).format("YYYY.MM.DD"));
+    }
+  }, [date]);
+
   return (
     <div>
       <h2 className="text-center font-normal">for training with</h2>
       <div className="flex flex-col justify-center items-center gap-1 mt-1">
-        <h2 className="text-center text-2xl">{choosedTrainer}</h2>
-        {image}
+        <h2 className="text-center text-2xl">{choosedTrainer.firstname}</h2>
+        <img
+          className="object-cover w-[100px] h-[100px] rounded-full"
+          src={image}
+          alt=""
+        />
       </div>
-      <div className="m-4 flex justify-between">
+      <div className="m-4 flex gap-7 justify-between">
         <PrimeCalendar handleDateChange={handleDateChange} date={date} />
         {date ? (
           <motion.div
@@ -42,58 +58,30 @@ function CalendarPage({
           >
             <h2 className="text-center">Time</h2>
             <div>
-              <Chip
-                sx={{
-                  cursor: "pointer",
-                  fontSize: "16px",
-                  padding: "6px 3px",
-                  m: "4px",
-                }}
-                label="10:00"
-                color={time === "10:00" ? "success" : "default"}
-                onClick={(e) => {
-                  handleTimeChange(e.currentTarget.textContent!);
-                }}
-              />
-              <Chip
-                sx={{
-                  cursor: "pointer",
-                  fontSize: "16px",
-                  padding: "6px 3px",
-                  m: "4px",
-                }}
-                label="11:00"
-                color={time === "11:00" ? "success" : "default"}
-                onClick={(e) => {
-                  handleTimeChange(e.currentTarget.textContent!);
-                }}
-              />
-              <Chip
-                sx={{
-                  cursor: "pointer",
-                  fontSize: "16px",
-                  padding: "6px 3px",
-                  m: "4px",
-                }}
-                label="13:00"
-                color={time === "13:00" ? "success" : "default"}
-                onClick={(e) => {
-                  handleTimeChange(e.currentTarget.textContent!);
-                }}
-              />
-              <Chip
-                sx={{
-                  cursor: "pointer",
-                  fontSize: "16px",
-                  padding: "6px 3px",
-                  m: "4px",
-                }}
-                label="17:00"
-                color={time === "17:00" ? "success" : "default"}
-                onClick={(e) => {
-                  handleTimeChange(e.currentTarget.textContent!);
-                }}
-              />
+              {choosedTrainer.available
+                .find((el) => el.day === dateString)
+                ?.times.map((time, index) => (
+                  <Chip
+                    key={index}
+                    sx={{
+                      cursor: "pointer",
+                      fontSize: "16px",
+                      padding: "6px 3px",
+                      m: "4px",
+                    }}
+                    color={choosedTime === time ? "success" : "default"}
+                    label={time}
+                    onClick={(e) => {
+                      handleTimeChange(e.currentTarget.textContent!);
+                    }}
+                  />
+                ))}
+              {choosedTrainer.available.every((el) => el.day !== dateString) ? (
+                <p className="text-center max-w-[200px] font-normal">
+                  <strong>{choosedTrainer.firstname} </strong>
+                  {`doesn't have free spaces left for this day :(`}
+                </p>
+              ) : null}
             </div>
           </motion.div>
         ) : null}

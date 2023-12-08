@@ -1,21 +1,21 @@
 //Framer
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-
 //MUI Icons
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-
 //Packages
 import dayjs from "dayjs";
-
+//Components
+import LoginForm from "../forms/LoginForm";
+//Types
+import { TrainerType } from "../../types/TrainerType";
+//Utils
+import { LOCAL_URL } from "../../utils/urls";
 //Redux
 import { useAppSelector } from "../../redux/hooks";
 
-//Components
-import LoginForm from "../forms/LoginForm";
-
 type Props = {
-  trainer: string;
+  trainer: TrainerType;
   date: Date | null;
   time: string;
 };
@@ -36,7 +36,8 @@ export default function Confirm({ trainer, date, time }: Props) {
       >
         <div className="ml-5">
           <p>
-            <span className="font-normal font-nunito">Trainer:</span> {trainer}
+            <span className="font-normal font-nunito">Trainer:</span>{" "}
+            {trainer.firstname}
           </p>
           <p>
             <span className="font-normal font-nunito">Date:</span>{" "}
@@ -74,7 +75,11 @@ export default function Confirm({ trainer, date, time }: Props) {
               className="mt-2"
             >
               <div className="flex flex-col justify-center items-center">
-                <LoginForm handleCloseLogin={handleCloseOnSuccessfulLogin} />
+                <LoginForm
+                  enableNavigate={false}
+                  backendRoute={`${LOCAL_URL}/api/users/login`}
+                  handleCloseLogin={handleCloseOnSuccessfulLogin}
+                />
               </div>
             </motion.div>
           ) : (

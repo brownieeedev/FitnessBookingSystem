@@ -1,15 +1,16 @@
 //Framer
 import { motion } from "framer-motion";
-
 //Mui Icons
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+//Types
+import { TrainerType } from "../../types/TrainerType";
 
 type TrainerProps = {
   name: string;
   delay?: number;
   image: React.ReactNode;
   setChoosedTrainer: (name: string) => void;
-  choosedTrainer?: string;
+  choosedTrainer?: TrainerType;
   displayContactIcons?: boolean;
 };
 
@@ -36,7 +37,7 @@ function TrainerCardSmall({
         transition: { duration: 0.5 },
       }}
       className={
-        choosedTrainer === name
+        choosedTrainer?.firstname === name
           ? "cursor-pointer m-2 flex flex-col justify-between rounded-xl  bg-[#3dff2b4b] bg-clip-border text-gray-700 shadow-md w-[200px] h-[250px]"
           : "cursor-pointer m-2 flex flex-col justify-between rounded-xl  bg-white bg-clip-border text-gray-700 shadow-md w-[200px] h-[250px]"
       }

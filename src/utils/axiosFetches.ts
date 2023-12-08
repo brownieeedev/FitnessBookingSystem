@@ -1,6 +1,6 @@
 //GET request
 import axios from "axios";
-import { successToast, errorToast } from "./toasts";
+import { toastSuccess, toastError } from "./toasts";
 
 export const axiosGet = async (url: string) => {
   const response = await axios.get(url);
@@ -24,17 +24,17 @@ export const axiosPostLoginAndSignup = async (
     if (log) console.log("RESPONSE: ", res);
 
     if (res.message) {
-      successToast(res.message);
+      toastSuccess(res.message);
     } else {
-      successToast(successMessage);
+      toastSuccess(successMessage);
     }
     return res;
   } catch (error: any) {
     if (log) console.log(error);
     if (error.response.data.message) {
-      errorToast(error.response.data.message);
+      toastError(error.response.data.message);
     } else {
-      errorToast(errorMessage);
+      toastError(errorMessage);
     }
     return error;
   }
