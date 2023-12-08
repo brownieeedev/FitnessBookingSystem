@@ -11,6 +11,7 @@ import { login } from "../../redux/slices/authSlice";
 //Utils
 import { axiosPostLoginAndSignup } from "../../utils/axiosFetches";
 import { LOCAL_URL } from "../../utils/urls";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   handleCloseLogin?: () => void;
@@ -26,6 +27,7 @@ export default function LoginForm({
   backendRoute,
 }: Props) {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   return (
     <Formik
       initialValues={{ email: "", pass: "" }}
@@ -47,11 +49,16 @@ export default function LoginForm({
         const res = await axiosPostLoginAndSignup(
           backendRoute,
           values,
-          true,
+          false,
           "Successfully logged in!",
           "Something went wrong when logging in!"
         );
-        if (handleCloseLogin) handleCloseLogin();
+        //handle success on signup
+        if (res.token) {
+          localStorage.setItem("token", res.token);
+          dispatch(login());
+        }
+        if (res.navigateTo) navigate(res.navigateTo);
       }}
     >
       {(formik) => (
@@ -73,7 +80,6 @@ export default function LoginForm({
                 {formik.errors.email}
               </div>
             ) : null}
-
             <Field
               placeholder="Enter email..."
               className="flex  px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"

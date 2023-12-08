@@ -1,7 +1,5 @@
 //Components
-import { useState } from "react";
 import LoginForm from "../components/forms/LoginForm";
-import SignUpPage from "./SignUpPage";
 //Utils
 import { LOCAL_URL } from "../utils/urls";
 import { useNavigate } from "react-router-dom";

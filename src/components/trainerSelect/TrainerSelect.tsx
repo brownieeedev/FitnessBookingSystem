@@ -40,10 +40,10 @@ export default function TrainerSelect() {
   const [date, setDate] = useState<Date | null>(null);
   const [time, setTime] = useState<string>("");
 
-  console.log(page);
-  console.log(choosedTrainer);
-  console.log(date);
-  console.log(time);
+  // console.log(page);
+  // console.log(choosedTrainer);
+  // console.log(date);
+  // console.log(time);
 
   const handleTrainerSelect = (name: string): void => {
     setChoosedTrainer(name);
