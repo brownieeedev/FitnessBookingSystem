@@ -2,7 +2,7 @@
 import axios from "axios";
 import { successToast, errorToast } from "./toasts";
 
-export const get = async (url: string) => {
+export const axiosGet = async (url: string) => {
   const response = await axios.get(url);
   return response.data;
 };

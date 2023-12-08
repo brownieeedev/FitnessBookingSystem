@@ -1,22 +1,38 @@
-function TailwindCard() {
+import { ShortTrainerType } from "../../types/TrainerType";
+
+function TailwindCard({
+  firstname,
+  trainingTypes,
+  links,
+  profilePicture,
+}: ShortTrainerType) {
   return (
     <div>
       <div className="relative flex w-96 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
         <div className="relative mx-4 mt-4 h-80 overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
           <img
-            src="https://www.material-tailwind.com/img/team-3.jpg"
+            className="object-cover w-full h-full"
+            src={profilePicture}
             alt="profile-picture"
           />
         </div>
         <div className="p-6 text-center">
           <h4 className="mb-2 block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-            Natalie Paisley
+            {firstname}
           </h4>
-          <p className="block bg-gradient-to-tr from-pink-600 to-pink-400 bg-clip-text font-sans text-base font-medium leading-relaxed text-transparent antialiased">
-            CEO / Co-Founder
-          </p>
+          {trainingTypes.map((trainingType, index) => (
+            <p
+              key={index}
+              className="block bg-gradient-to-tr from-pink-600 to-pink-400 bg-clip-text font-sans text-base font-medium leading-relaxed text-transparent antialiased"
+            >
+              {trainingType}
+            </p>
+          ))}
         </div>
         <div className="flex justify-center gap-7 p-6 pt-2">
+          {/* {links.map((link, index) => (
+            <a key={index} href={link[index]}></a>
+          ))} */}
           <a
             href="#facebook"
             className="block bg-gradient-to-tr from-blue-600 to-blue-400 bg-clip-text font-sans text-xl font-normal leading-relaxed text-transparent antialiased"
@@ -36,27 +52,10 @@ function TailwindCard() {
             <i className="fab fa-instagram" aria-hidden="true"></i>
           </a>
         </div>
-      </div>
-      <div className="w-full pt-5 px-4 mb-8 mx-auto ">
-        <div className="text-sm text-gray-700 py-1">
-          Made with{" "}
-          <a
-            className="text-gray-700 font-semibold"
-            href="https://www.material-tailwind.com/docs/html/card?ref=tailwindcomponents"
-            target="_blank"
-          >
-            Material Tailwind
-          </a>{" "}
-          by{" "}
-          <a
-            href="https://www.creative-tim.com?ref=tailwindcomponents"
-            className="text-gray-700 font-semibold"
-            target="_blank"
-          >
-            {" "}
-            Creative Tim
-          </a>
-          .
+        <div className="flex justify-center m-3">
+          <button className="bg-darkgray hover:bg-black text-white p-4 px-7 rounded-full ">
+            More about me
+          </button>
         </div>
       </div>
     </div>
