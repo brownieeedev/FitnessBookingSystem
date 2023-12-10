@@ -40,7 +40,7 @@ const SummaryCard = ({
 
 export default function TrainerSummaryPanels() {
   return (
-    <div className="flex flex-col mr-auto md:flex-row">
+    <div className="flex flex-col justify-center md:flex-row">
       <SummaryCard name="Personal Trainings" numValue={100} />
       <SummaryCard
         className="bg-gradient-to-r from-fuchsia-600 to-purple-500 "
