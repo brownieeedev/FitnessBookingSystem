@@ -3,6 +3,7 @@ import {
   DashboardCustomizeIcon,
   AccessTimeFilledIcon,
   VideoCallIcon,
+  SettingsIcon,
 } from "../../utils/muiIcons";
 //Framer
 import { motion } from "framer-motion";
@@ -13,6 +14,7 @@ type SideNavButtonProps = {
 };
 
 type SidePanelProps = {
+  changePage: (pageNum: number) => void;
   trainer: {
     imgSrc: string;
     name: string;
@@ -27,10 +29,11 @@ const sideNavButtons: SideNavButtonProps[] = [
 ];
 
 export default function SidePanel({
+  changePage,
   trainer: { imgSrc, name: trainer, title = "Personal Trainer" },
 }: SidePanelProps) {
   return (
-    <div className="bg-zinc-800 select-none h-full text-white mr-auto mb-auto  w-[300px] min-w-[200px]">
+    <div className="relative bg-zinc-800 select-none h-full text-white mr-auto mb-auto  w-[300px] min-w-[200px]">
       <div //HEADER with Trainer Data
         className="flex p-3 gap-2  bg-neutral-500"
       >
@@ -47,9 +50,12 @@ export default function SidePanel({
         </div>
       </div>
       <div className="flex flex-col">
-        {sideNavButtons.map(({ text, icon }) => (
+        {sideNavButtons.map(({ text, icon }, index) => (
           <motion.div
-            key={text}
+            key={index}
+            onClick={() => {
+              changePage(index + 1);
+            }}
             className="flex items-center border-b border-gray-700 gap-2 p-4 cursor-pointer hover:bg-gray-700"
           >
             <div className="ml-3">
@@ -58,6 +64,15 @@ export default function SidePanel({
             </div>
           </motion.div>
         ))}
+      </div>
+      <div
+        onClick={() => {
+          changePage(4);
+        }}
+        className="absolute bottom-0 w-full flex items-center gap-2 p-4 cursor-pointer hover:bg-gray-700"
+      >
+        <SettingsIcon />
+        <p>My Settings</p>
       </div>
     </div>
   );

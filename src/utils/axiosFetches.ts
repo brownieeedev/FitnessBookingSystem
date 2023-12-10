@@ -12,6 +12,11 @@ export const axiosPost = async (url: string, data: object) => {
   return response.data;
 };
 
+export const axiosPatch = async (url: string, data: object) => {
+  const response = await axios.patch(url, data);
+  return response.data;
+};
+
 export const axiosPostLoginAndSignup = async (
   url: string,
   data: object,

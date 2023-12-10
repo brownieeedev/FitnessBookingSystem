@@ -19,6 +19,8 @@ export type TrainerType = {
   _id: string;
   firstname: string;
   lastname?: string;
+  email: string;
+  phone: string;
   available: AvailableTime[];
   introduction: string;
   profilePicture?: string;

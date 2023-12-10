@@ -7,7 +7,7 @@ import { PrimeReactProvider } from "primereact/api";
 //Components
 import Nav from "./components/nav/Nav";
 import Footer from "./components/footer/Footer";
-import LinearBackground from "./components/linearBackground/LinearBackground";
+// import LinearBackground from "./components/linearBackground/LinearBackground";
 import WidthRestrictionElement from "./components/widthRestriction/WidthRestrictionElement";
 //Pages
 import Home from "./pages/Home";
@@ -19,6 +19,7 @@ import Trainers from "./pages/Trainers";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import TrainerPage from "./pages/TrainerPage";
+import TrainerLogin from "./pages/trainer/TrainerLogin";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
                 { name: "About Us", navigateTo: "/" },
                 { name: "Get in Touch", navigateTo: "/getintouch" },
                 { name: "My Trainer Page", navigateTo: "/mytrainerpage" },
+                { name: "Trainer Login", navigateTo: "/trainerlogin" },
                 { name: "Login", navigateTo: "/login" },
               ]}
             />
@@ -56,6 +58,10 @@ function App() {
               <Route
                 path="/login"
                 element={<LoginPage companyName="LondonFitness" />}
+              />
+              <Route
+                path="/trainerlogin"
+                element={<TrainerLogin companyName="LondonFitness" />}
               />
             </Routes>
           </AnimatePresence>
