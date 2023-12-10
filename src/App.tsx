@@ -8,6 +8,7 @@ import { PrimeReactProvider } from "primereact/api";
 import Nav from "./components/nav/Nav";
 import Footer from "./components/footer/Footer";
 import LinearBackground from "./components/linearBackground/LinearBackground";
+import WidthRestrictionElement from "./components/widthRestriction/WidthRestrictionElement";
 //Pages
 import Home from "./pages/Home";
 import GetInTouch from "./pages/GetInTouch";
@@ -24,38 +25,39 @@ function App() {
     <>
       <PrimeReactProvider>
         <Router>
-          <LinearBackground />
+          {/* <LinearBackground /> */}
           <AnimatePresence>
-            <div className="max-w-[1250px] m-auto">
-              <Nav
-                tabs={[
-                  { name: "Trainings", navigateTo: "/trainings" },
-                  { name: "Trainers", navigateTo: "/trainers" },
-                  { name: "Videos", navigateTo: "/videos" },
-                  { name: "About Us", navigateTo: "/" },
-                  { name: "Get in Touch", navigateTo: "/getintouch" },
-                  { name: "My Trainer Page", navigateTo: "/mytrainerpage" },
-                  { name: "Login", navigateTo: "/login" },
-                ]}
-              />
-              <Routes>
+            <Nav
+              tabs={[
+                { name: "Trainings", navigateTo: "/trainings" },
+                { name: "Trainers", navigateTo: "/trainers" },
+                { name: "Videos", navigateTo: "/videos" },
+                { name: "About Us", navigateTo: "/" },
+                { name: "Get in Touch", navigateTo: "/getintouch" },
+                { name: "My Trainer Page", navigateTo: "/mytrainerpage" },
+                { name: "Login", navigateTo: "/login" },
+              ]}
+            />
+            <Routes>
+              <Route element={<WidthRestrictionElement />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/getintouch" element={<GetInTouch />} />
                 <Route path="/trainers" element={<Trainers />} />
                 <Route path="/trainings" element={<Trainings />} />
                 <Route path="/trainings/personal" element={<Personal />} />
                 <Route path="/signup" element={<SignUpPage />} />
-                <Route path="/mytrainerpage" element={<TrainerPage />} />
                 <Route
                   path="/trainings/personal/online"
                   element={<PersonalOnline />}
                 />
-                <Route
-                  path="/login"
-                  element={<LoginPage companyName="LondonFitness" />}
-                />
-              </Routes>
-            </div>
+              </Route>
+
+              <Route path="/mytrainerpage" element={<TrainerPage />} />
+              <Route
+                path="/login"
+                element={<LoginPage companyName="LondonFitness" />}
+              />
+            </Routes>
           </AnimatePresence>
         </Router>
         <Footer />

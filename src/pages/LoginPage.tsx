@@ -13,13 +13,13 @@ function LoginPage({ companyName }: Props) {
   const year = new Date().getFullYear();
 
   return (
-    <div className="flex min-h-screen text-black">
+    <div className="flex  min-h-screen text-black">
       <div className="flex flex-row w-full">
         <div className="hidden lg:flex flex-col justify-between bg-[#ffe85c] lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg">
           <div className="flex items-center justify-start space-x-3">
             <span className="bg-black rounded-full w-8 h-8"></span>
             <a href="#" className="font-medium text-xl">
-              Brand
+              {companyName}
             </a>
           </div>
           <div className="space-y-5">

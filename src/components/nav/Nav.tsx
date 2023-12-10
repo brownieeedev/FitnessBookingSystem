@@ -24,7 +24,7 @@ export default function Nav({ tabs, contactIcons }: Props) {
       <div className="m-6 sm:hidden">
         <ResponsiveNavigation />
       </div>
-      <div className="hidden text-white overflow-hidden sm:flex sm:justify-between md:items-center z-10 h-[auto] bg-transparent absolute mb-2 mt top-0 right-0 pl-5 pr-5">
+      <div className="hidden text-black overflow-hidden sm:flex sm:justify-between md:items-center z-10 h-[auto] bg-transparent  mb-2 mt top-0 right-0 pl-5 pr-5">
         <div //icons-container
           className="flex items-center cursor-pointer"
         >
@@ -55,7 +55,6 @@ export default function Nav({ tabs, contactIcons }: Props) {
                     className="font-poppins"
                     whileHover={{
                       scale: 1.04,
-                      color: "#fff",
                       transition: { duration: 0.1 },
                     }}
                     onClick={() => {
