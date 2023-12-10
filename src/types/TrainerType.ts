@@ -1,6 +1,7 @@
 type Links = {
   name: string;
   link: string;
+  iconLink: string;
 };
 
 export type ShortTrainerType = {
@@ -21,6 +22,7 @@ export type TrainerType = {
   lastname?: string;
   email: string;
   phone: string;
+  sex?: "Male" | "Female";
   available: AvailableTime[];
   introduction: string;
   profilePicture?: string;

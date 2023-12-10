@@ -9,6 +9,12 @@ type TrainerAccountProps = {
   trainer: TrainerType;
 };
 
+//TODO:
+// add icons to data fields
+// handle patch for each field
+// after changing a field with useEffect update the trainer data visually with a re-render
+// social links
+
 export default function MyTrainerAccount({ trainer }: TrainerAccountProps) {
   const [editIntroduction, setEditIntroduction] = useState<boolean>(false);
   const [introductionValue, setIntroductionValue] = useState<string>();
@@ -60,23 +66,42 @@ export default function MyTrainerAccount({ trainer }: TrainerAccountProps) {
           <h2 className="text-2xl text-center">Other Information About You</h2>
           <div className=" px-3 flex flex-col justify-center space-y-5">
             <p className="border-b border-gray-200">
-              <strong className="font-bold">Training types:</strong> Dancing
-              class, Yoga, Pilates
+              <strong className="font-bold">Training types: </strong>
+              {trainer?.trainingTypes?.join(", ")}
             </p>
             <p className="border-b border-gray-200">
               {" "}
               <strong className="font-bold">
                 Places of availability:
               </strong>{" "}
-              London
+              {trainer.places.join(", ")}
             </p>
             <p className="border-b border-gray-200">
-              <strong className="font-bold">Sex:</strong> Male
+              <strong className="font-bold">Sex:</strong> {trainer.sex}
             </p>
             <p className="cursor-pointer border-b underline border-gray-200">
               {" "}
-              <strong className="font-bold">Social links:</strong>facebook,
-              instagram, tiktok
+              <strong className="font-bold">Social links:</strong>
+              {trainer.links.map((linkData, index) => {
+                return (
+                  <div className="flex my-2 gap-1" key={index}>
+                    <img
+                      className="w-[25px] h-[25px]"
+                      src={
+                        linkData.name === "facebook"
+                          ? "../../src/assets/downloadedIcons/fb1.svg"
+                          : linkData.name === "instagram"
+                          ? "../../src/assets/downloadedIcons/insta1.svg"
+                          : "../../src/assets/downloadedIcons/insta1.svg"
+                      }
+                      alt=""
+                    />
+                    <a href={linkData.link} target="_blank" rel="noreferrer">
+                      {linkData.name}
+                    </a>
+                  </div>
+                );
+              })}
             </p>
           </div>
         </div>
