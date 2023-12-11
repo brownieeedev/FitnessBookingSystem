@@ -11,14 +11,17 @@ type TextAreaFormProps = {
   rows?: number;
   cols?: number;
   initialValues?: { textarea: string };
-  setEditIntroduction: () => void;
+  finishEditingIntroduction: (newIntroduction: string) => void;
 };
+
+//TODO:
+//handle line breaks to save as well
 
 function TextAreaForm({
   rows = 8,
   cols = 80,
   initialValues = { textarea: "" },
-  setEditIntroduction,
+  finishEditingIntroduction,
 }: TextAreaFormProps) {
   return (
     <Formik
@@ -30,9 +33,7 @@ function TextAreaForm({
           .max(1000, "Must be 1000 characters or less!"),
       })}
       onSubmit={async (values) => {
-        console.log("submit");
-        console.log(values);
-        //fetch to backend with patch
+        //fetch
         try {
           jwtInterceptor();
           const res = await axiosPatch(
@@ -40,7 +41,7 @@ function TextAreaForm({
             values
           );
           if (res.status === "success") {
-            setEditIntroduction();
+            finishEditingIntroduction(values.textarea);
             toastSuccess("Successfully updated your introduction!");
           }
         } catch (err) {

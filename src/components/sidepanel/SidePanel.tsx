@@ -4,7 +4,7 @@ import {
   AccessTimeFilledIcon,
   VideoCallIcon,
   SettingsIcon,
-} from "../../utils/muiIcons";
+} from "../../utils/icons/muiIcons";
 //Framer
 import { motion } from "framer-motion";
 

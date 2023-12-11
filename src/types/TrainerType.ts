@@ -21,6 +21,7 @@ export type TrainerType = {
   firstname: string;
   lastname?: string;
   email: string;
+  dateOfBirth?: string;
   phone: string;
   sex?: "Male" | "Female";
   available: AvailableTime[];

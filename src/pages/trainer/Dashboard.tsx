@@ -4,12 +4,12 @@ import EasyTable from "../../components/tables/EasyTable";
 
 function Dashboard() {
   return (
-    <React.Fragment>
+    <div className=" max-w-[1300px] mx-auto  h-full">
       <TrainerSummaryPanels />
-      <div className="mx-auto my-7 max-w-[90%]">
+      <div className="mx-auto my-7 ">
         <EasyTable />
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 

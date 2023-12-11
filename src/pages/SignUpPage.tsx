@@ -4,7 +4,7 @@ import LoginForm from "../components/forms/LoginForm";
 //Framer
 import { motion } from "framer-motion";
 //Icons
-import { ArrowBackIcon } from "../utils/muiIcons";
+import { ArrowBackIcon } from "../utils/icons/muiIcons";
 //Utils
 import { LOCAL_URL } from "../utils/urls";
 

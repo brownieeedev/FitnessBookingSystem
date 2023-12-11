@@ -1,25 +1,43 @@
 import { useState } from "react";
 //Mui Icons
-import { CloseIcon } from "../../utils/muiIcons";
+import {
+  CloseIcon,
+  EmailIcon,
+  PhoneIcon,
+  FitnessCenterIcon,
+  EmojiTransportationIcon,
+  WcIcon,
+} from "../../utils/icons/muiIcons";
+import {
+  FaBirthdayCake,
+  IoIosFitness,
+  IoPersonSharp,
+} from "../../utils/icons/reactIcons";
+//Packages
+import dayjs from "dayjs";
 //Components
 import TextAreaForm from "../../components/forms/TextAreaForm";
 //Types
 import { TrainerType } from "../../types/TrainerType";
+import Email from "@mui/icons-material/Email";
 type TrainerAccountProps = {
   trainer: TrainerType;
+  handleTrainerDataChange: (newIntroduction?: string) => void;
 };
 
 //TODO:
-// add icons to data fields
 // handle patch for each field
 // after changing a field with useEffect update the trainer data visually with a re-render
-// social links
 
-export default function MyTrainerAccount({ trainer }: TrainerAccountProps) {
+export default function MyTrainerAccount({
+  trainer,
+  handleTrainerDataChange,
+}: TrainerAccountProps) {
   const [editIntroduction, setEditIntroduction] = useState<boolean>(false);
   const [introductionValue, setIntroductionValue] = useState<string>();
 
-  const handleCloseTextareaOnSuccess = (): void => {
+  const handleCloseTextareaOnSuccess = (newIntroduction: string): void => {
+    handleTrainerDataChange(newIntroduction);
     setEditIntroduction(false);
   };
 
@@ -43,48 +61,81 @@ export default function MyTrainerAccount({ trainer }: TrainerAccountProps) {
             </button>
           </div>
           <div className="flex flex-col justify-center space-y-5">
-            <h3 className="text-2xl">Contact information</h3>
-            <p className="border-b border-gray-200">
-              <strong className="font-bold">Firstname:</strong>{" "}
-              {trainer.firstname}
-            </p>
-            <p className="border-b border-gray-200">
-              {" "}
-              <strong className="font-bold">Lastname:</strong>{" "}
-              {trainer.lastname}
-            </p>
-            <p className="border-b border-gray-200">
-              <strong className="font-bold">Email:</strong> {trainer.email}
-            </p>
-            <p className="border-b border-gray-200">
-              {" "}
-              <strong className="font-bold">Phone:</strong> {trainer.phone}
-            </p>
+            <h3 className="text-2xl font-bold">Contact information</h3>
+            <div className="border-b border-gray-200 flex items-center gap-1">
+              <div className="flex">
+                <IoPersonSharp className="mb-[1px] text-lg" />
+                <p className="text-[9px]">1</p>
+              </div>
+              <p className="">
+                <strong className="font-bold">Firstname:</strong>{" "}
+                {trainer.firstname}
+              </p>
+            </div>
+            <div className="border-b border-gray-200 flex items-center gap-1">
+              <div className="flex">
+                <IoPersonSharp className="mb-[1px] text-lg" />
+                <p className="text-[9px]">2</p>
+              </div>
+              <p className="border-b border-gray-200">
+                <strong className="font-bold">Lastname:</strong>{" "}
+                {trainer.lastname}
+              </p>
+            </div>
+            <div className="border-b border-gray-200 flex items-center gap-1">
+              <EmailIcon sx={{ fontSize: "20px" }} />
+              <p className="border-b border-gray-200">
+                <strong className="font-bold">Email:</strong> {trainer.email}
+              </p>
+            </div>
+            <div className="border-b border-gray-200 flex items-center gap-1">
+              <PhoneIcon sx={{ mb: "1px", fontSize: "20px" }} />
+              <p className="border-b border-gray-200">
+                <strong className="font-bold">Phone:</strong> {trainer.phone}
+              </p>
+            </div>
           </div>
         </div>
         <div className=" w-1/2 max-w-[600px] bg-zinc-100 shadow-2xl p-5 mx-5 rounded-md flex flex-col justify-center gap-5">
-          <h2 className="text-2xl text-center">Other Information About You</h2>
+          <h2 className="text-2xl text-center font-bold">
+            Other Information About You
+          </h2>
           <div className=" px-3 flex flex-col justify-center space-y-5">
-            <p className="border-b border-gray-200">
-              <strong className="font-bold">Training types: </strong>
-              {trainer?.trainingTypes?.join(", ")}
-            </p>
-            <p className="border-b border-gray-200">
-              {" "}
-              <strong className="font-bold">
-                Places of availability:
-              </strong>{" "}
-              {trainer.places.join(", ")}
-            </p>
-            <p className="border-b border-gray-200">
-              <strong className="font-bold">Sex:</strong> {trainer.sex}
-            </p>
-            <p className="cursor-pointer border-b underline border-gray-200">
+            <div className="border-b border-gray-200 flex items-center gap-1">
+              <IoIosFitness className="mb-[1px] text-lg" />
+              <p className="border-b border-gray-200">
+                <strong className="font-bold">Training types: </strong>
+                {trainer?.trainingTypes?.join(", ")}
+              </p>
+            </div>
+            <div className="border-b border-gray-200 flex items-center gap-1">
+              <EmojiTransportationIcon sx={{ fontSize: "21px" }} />
+              <p className="border-b border-gray-200">
+                <strong className="font-bold">Places of availability:</strong>{" "}
+                {trainer.places.join(", ")}
+              </p>
+            </div>
+            <div className="border-b border-gray-200 flex items-center gap-1">
+              <FaBirthdayCake className="text-lg mb-[5px]" />
+              <p className="border-b border-gray-200">
+                <strong className="font-bold">Date of Birth:</strong>{" "}
+                {trainer.dateOfBirth
+                  ? dayjs(trainer.dateOfBirth).format("YYYY.MM.DD")
+                  : null}
+              </p>
+            </div>
+            <div className="border-b border-gray-200 flex items-center gap-1">
+              <WcIcon sx={{ fontSize: "21px" }} />
+              <p className="border-b border-gray-200">
+                <strong className="font-bold">Sex:</strong> {trainer.sex}
+              </p>
+            </div>
+            <p className="cursor-pointer border-b border-gray-200">
               {" "}
               <strong className="font-bold">Social links:</strong>
               {trainer.links.map((linkData, index) => {
                 return (
-                  <div className="flex my-2 gap-1" key={index}>
+                  <div className="flex my-2 gap-1 underline" key={index}>
                     <img
                       className="w-[25px] h-[25px]"
                       src={
@@ -127,15 +178,8 @@ export default function MyTrainerAccount({ trainer }: TrainerAccountProps) {
               </div>
               <TextAreaForm
                 initialValues={{ textarea: trainer.introduction }}
-                setEditIntroduction={handleCloseTextareaOnSuccess}
+                finishEditingIntroduction={handleCloseTextareaOnSuccess}
               />
-              {/* <textarea
-                autoFocus
-                cols={100}
-                rows={8}
-                className="text-lg"
-                value={introductionValue}
-              /> */}
             </>
           ) : (
             <>

@@ -5,6 +5,7 @@ import SidePanel from "../components/sidepanel/SidePanel";
 //Pages
 import Dashboard from "./trainer/Dashboard";
 import MyTrainerAccount from "./trainer/MyTrainerAccount";
+import AvailabilityPage from "./trainer/AvailabilityPage";
 
 //Utils
 import { useMount } from "../hooks/useMount";
@@ -26,9 +27,7 @@ export default function TrainerPage() {
   const [page, setPage] = useState(1);
   const [trainerData, setTrainerData] = useState<TrainerType>();
 
-  const handlePageChange = (pageNum: number): void => {
-    setPage(pageNum);
-  };
+  // console.log("trainerData", trainerData);
 
   useMount(async () => {
     jwtInterceptor();
@@ -45,10 +44,26 @@ export default function TrainerPage() {
     }
   });
 
+  const handlePageChange = (pageNum: number): void => {
+    setPage(pageNum);
+  };
+
+  const handleTrainerDataChange = (newIntroduction?: string): void => {
+    if (!newIntroduction) return;
+    setTrainerData((prev) => {
+      return {
+        ...prev!,
+        introduction: newIntroduction,
+      };
+    });
+  };
+
   return (
     <div className="font-nunito font-light">
       <div className="flex bg-slate-200 min-h-[800px]">
-        <div className="flex justify-center items-center">
+        <div //SIDEPANEL
+          className="flex justify-center items-center"
+        >
           <SidePanel
             trainer={{
               name: trainerData?.firstname ?? "",
@@ -57,7 +72,9 @@ export default function TrainerPage() {
             changePage={handlePageChange}
           />
         </div>
-        <div className="flex flex-col w-full">
+        <div //MAIN PANEL
+          className=" flex flex-col w-full"
+        >
           <div //TOP SKIRT
             className="bg-zinc-800 w-full flex items-center justify-between min-h-[70px]"
           >
@@ -82,8 +99,15 @@ export default function TrainerPage() {
             switch (page) {
               case 1:
                 return <Dashboard />;
+              case 2:
+                return <AvailabilityPage />;
               case 4:
-                return <MyTrainerAccount trainer={trainerData!} />;
+                return (
+                  <MyTrainerAccount
+                    trainer={trainerData!}
+                    handleTrainerDataChange={handleTrainerDataChange}
+                  />
+                );
               default:
                 return null;
             }
