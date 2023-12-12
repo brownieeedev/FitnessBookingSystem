@@ -1,5 +1,5 @@
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { FC, useState } from "react";
+import { useState } from "react";
 import { Calendar, dateFnsLocalizer, Event } from "react-big-calendar";
 import withDragAndDrop, {
   withDragAndDropProps,
@@ -42,11 +42,13 @@ export default function ReactBigCalendar() {
 
   return (
     <DnDCalendar
-      defaultView="week"
+      className="bg-white p-5"
+      defaultView="month"
       events={events}
       localizer={localizer}
       onEventDrop={onEventDrop}
       onEventResize={onEventResize}
+      onSelectEvent={(event) => console.log(event)}
       resizable
       style={{ height: "100vh" }}
     />

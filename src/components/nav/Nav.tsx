@@ -24,15 +24,15 @@ export default function Nav({ tabs, contactIcons }: Props) {
       <div className="m-6 sm:hidden">
         <ResponsiveNavigation />
       </div>
-      <div className="hidden text-black overflow-hidden sm:flex sm:justify-between md:items-center z-10 h-[auto] bg-transparent  mb-2 mt top-0 right-0 pl-5 pr-5">
+      <div className="hidden text-darkgray overflow-hidden sm:flex sm:justify-between md:items-center z-10 h-[auto] bg-slate-300  pb-2 mt top-0 right-0 pl-5 pr-5">
         <div //icons-container
           className="flex items-center cursor-pointer"
         >
-          {contactIcons?.map((icon, index) => (
+          {/* {contactIcons?.map((icon, index) => (
             <div key={index} className="mr-1">
               {icon}
             </div>
-          ))}
+          ))} */}
         </div>
         <div>
           <ul className="flex select-none items-center">
