@@ -1,5 +1,5 @@
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Calendar, dateFnsLocalizer, Event } from "react-big-calendar";
 import withDragAndDrop, {
   withDragAndDropProps,
@@ -15,14 +15,59 @@ import startOfHour from "date-fns/startOfHour";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
-export default function ReactBigCalendar() {
-  const [events, setEvents] = useState<Event[]>([
-    {
-      title: "Learn cool stuff",
-      start,
-      end,
-    },
-  ]);
+//Components
+import BasicModal from "../modals/BasicModal";
+//Types
+import { SlotInfo } from "react-big-calendar";
+import { AvailableTime } from "../../types/TrainerType";
+type BigCalendarProps = {
+  trainerAvailability: AvailableTime[];
+};
+
+export default function ReactBigCalendar({
+  trainerAvailability,
+}: BigCalendarProps) {
+  //states
+  const [events, setEvents] = useState<Event[]>([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [slotInfo, setSlotInfo] = useState<SlotInfo | null>(null);
+
+  //if trainerAvailability changes, create new events
+  useEffect(() => {
+    createEventsFromAvailability(trainerAvailability);
+  }, [trainerAvailability]);
+
+  const stringToDateConverter = (
+    dateString: string,
+    trainingTime?: number
+  ): Date => {
+    // converts this format "2023.12.12.10:00"
+    const dateParts = dateString.split(".");
+    const year = parseInt(dateParts[0]);
+    const month = parseInt(dateParts[1]) - 1; // months are zero-based (0-11)
+    const day = parseInt(dateParts[2]);
+    const timeParts = dateParts[3].split(":");
+    const hour = parseInt(timeParts[0]);
+    const minute = parseInt(timeParts[1]);
+
+    if (trainingTime) {
+      return new Date(year, month, day, hour + trainingTime, minute);
+    }
+    return new Date(year, month, day, hour, minute);
+  };
+
+  const createEventsFromAvailability = (
+    trainerAvailability: AvailableTime[]
+  ): void => {
+    const events: Event[] = trainerAvailability.flatMap((availableObj) =>
+      availableObj.times.map((time) => ({
+        title: <p className="p-1">Personal Training</p>,
+        start: stringToDateConverter(`${availableObj.day}.${time}`),
+        end: stringToDateConverter(`${availableObj.day}.${time}`, 1),
+      }))
+    );
+    setEvents(events);
+  };
 
   const onEventResize: withDragAndDropProps["onEventResize"] = (data) => {
     const { start, end } = data;
@@ -40,18 +85,35 @@ export default function ReactBigCalendar() {
     console.log(data);
   };
 
+  const selectSlot = (slotInfo: SlotInfo) => {
+    if (slotInfo.start < new Date()) return;
+    setSlotInfo(slotInfo);
+    setOpenModal(true);
+  };
+
   return (
-    <DnDCalendar
-      className="bg-white p-5"
-      defaultView="month"
-      events={events}
-      localizer={localizer}
-      onEventDrop={onEventDrop}
-      onEventResize={onEventResize}
-      onSelectEvent={(event) => console.log(event)}
-      resizable
-      style={{ height: "100vh" }}
-    />
+    <div className="relative">
+      <BasicModal
+        open={openModal}
+        handleClose={() => {
+          setOpenModal(false);
+        }}
+        slotInfo={slotInfo}
+      />
+      <DnDCalendar
+        className="bg-white p-5"
+        defaultView="month"
+        events={events}
+        localizer={localizer}
+        onEventDrop={onEventDrop}
+        onEventResize={onEventResize}
+        onSelectSlot={selectSlot}
+        onSelectEvent={(event) => console.log(event)}
+        resizable
+        selectable
+        style={{ height: "100vh" }}
+      />
+    </div>
   );
 }
 

@@ -100,7 +100,11 @@ export default function TrainerPage() {
               case 1:
                 return <Dashboard />;
               case 2:
-                return <AvailabilityPage />;
+                return (
+                  <AvailabilityPage
+                    trainerAvailability={trainerData?.available!}
+                  />
+                );
               case 4:
                 return (
                   <MyTrainerAccount

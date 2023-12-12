@@ -11,7 +11,7 @@ export type ShortTrainerType = {
   profilePicture: string;
 };
 
-type AvailableTime = {
+export type AvailableTime = {
   day: string;
   times: string[];
 };
