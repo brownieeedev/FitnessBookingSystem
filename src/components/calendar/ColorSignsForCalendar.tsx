@@ -1,4 +1,3 @@
-import { color } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 type SignProps = {
   text: string;
