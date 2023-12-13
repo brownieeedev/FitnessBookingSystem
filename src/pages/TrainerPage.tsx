@@ -1,5 +1,5 @@
 //Components
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SidePanel from "../components/sidepanel/SidePanel";
 
 //Pages
@@ -15,6 +15,7 @@ import { toastError } from "../utils/toasts";
 import { LOCAL_URL } from "../utils/urls";
 //Types
 import { TrainerType } from "../types/TrainerType";
+import { Booking } from "../types/BookingType";
 
 const panels: string[] = [
   "Dashboard",
@@ -24,14 +25,14 @@ const panels: string[] = [
 ];
 
 export default function TrainerPage() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState<number>(1);
   const [trainerData, setTrainerData] = useState<TrainerType>();
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [refetch, setRefetch] = useState(false);
 
   // console.log("trainerData", trainerData);
 
-  useMount(async () => {
-    jwtInterceptor();
-    //fetch to get trainer data
+  const fetchTrainerData = async () => {
     try {
       const res = await axiosGet(`${LOCAL_URL}/api/trainers/me`);
       if (res.status === "success") {
@@ -42,7 +43,38 @@ export default function TrainerPage() {
       toastError("Something went wrong, could not load your data!");
       console.error(err);
     }
+  };
+  const fetchBookedTrainings = async () => {
+    try {
+      const res = await axiosGet(`${LOCAL_URL}/api/trainers/getmybookings`);
+      console.log(res);
+      if (res.statusCode === 200) {
+        setBookings(res.data);
+      }
+    } catch (error) {
+      toastError("Something went wrong, could not load your data!");
+      console.error(error);
+    }
+  };
+
+  useMount(async () => {
+    jwtInterceptor();
+    //fetches
+    fetchTrainerData();
+    fetchBookedTrainings();
   });
+
+  useEffect(() => {
+    sessionStorage.setItem("page", page.toString());
+  }, [page]);
+
+  //Handling refetch by setting a state called refetch
+  const handleRefetchChange = (): void => {
+    setRefetch((prev) => !prev);
+  };
+  useEffect(() => {
+    fetchTrainerData();
+  }, [refetch]);
 
   const handlePageChange = (pageNum: number): void => {
     setPage(pageNum);
@@ -102,7 +134,9 @@ export default function TrainerPage() {
               case 2:
                 return (
                   <AvailabilityPage
+                    refetch={handleRefetchChange}
                     trainerAvailability={trainerData?.available!}
+                    bookings={bookings}
                   />
                 );
               case 4:

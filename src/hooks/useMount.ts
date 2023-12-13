@@ -5,3 +5,11 @@ export const useMount = (callback: () => void) => {
     callback();
   }, []);
 };
+
+export const useUnMount = (callback: () => void) => {
+  useEffect(() => {
+    return () => {
+      callback();
+    };
+  }, []);
+};

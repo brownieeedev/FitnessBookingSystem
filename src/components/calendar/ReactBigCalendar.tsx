@@ -20,12 +20,18 @@ import BasicModal from "../modals/BasicModal";
 //Types
 import { SlotInfo } from "react-big-calendar";
 import { AvailableTime } from "../../types/TrainerType";
+import { Booking } from "../../types/BookingType";
+
 type BigCalendarProps = {
   trainerAvailability: AvailableTime[];
+  bookings: Booking[];
+  refetch: () => void;
 };
 
 export default function ReactBigCalendar({
   trainerAvailability,
+  bookings,
+  refetch,
 }: BigCalendarProps) {
   //states
   const [events, setEvents] = useState<Event[]>([]);
@@ -61,7 +67,7 @@ export default function ReactBigCalendar({
   ): void => {
     const events: Event[] = trainerAvailability.flatMap((availableObj) =>
       availableObj.times.map((time) => ({
-        title: <p className="p-1">Personal Training</p>,
+        title: <p className="p-1">{`Personal Training ${time}`}</p>,
         start: stringToDateConverter(`${availableObj.day}.${time}`),
         end: stringToDateConverter(`${availableObj.day}.${time}`, 1),
       }))
@@ -99,6 +105,7 @@ export default function ReactBigCalendar({
           setOpenModal(false);
         }}
         slotInfo={slotInfo}
+        refetch={refetch}
       />
       <DnDCalendar
         className="bg-white p-5"

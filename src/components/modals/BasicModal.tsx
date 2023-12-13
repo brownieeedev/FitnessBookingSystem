@@ -13,6 +13,7 @@ import { AvailableTime } from "../../types/TrainerType";
 import { axiosPatch } from "../../utils/axiosFetches";
 import { LOCAL_URL } from "../../utils/urls";
 import { jwtInterceptor } from "../../utils/jwtInterceptor";
+import { toastSuccess, toastError } from "../../utils/toasts";
 
 const defaultTimes = [
   "6:00",
@@ -50,12 +51,14 @@ type BasicModalProps = {
   open: boolean;
   handleClose: () => void;
   slotInfo: SlotInfo | null;
+  refetch: () => void;
 };
 
 export default function BasicModal({
   open = false,
   handleClose,
   slotInfo,
+  refetch,
 }: BasicModalProps) {
   //   console.log("slotInfo", slotInfo);
 
@@ -63,26 +66,48 @@ export default function BasicModal({
 
   const handleSubmit = async () => {
     if (selectedHours.length === 0) return;
+    //TODO: think about if sorting here is a good idea here or in the backend
     //sorting if there is atleast 2 elements
     let sortedTimes: string[] = [];
+    let obj: AvailableTime;
     if (selectedHours.length > 1) {
       sortedTimes = [...selectedHours].sort((a, b) => {
         const [hoursA, minutesA] = a.split(":").map(Number);
         const [hoursB, minutesB] = b.split(":").map(Number);
         return hoursA - hoursB || minutesA - minutesB;
       });
+      obj = {
+        day: dayjs(slotInfo!.start).format("YYYY.MM.DD"),
+        times: sortedTimes,
+      };
+    } else {
+      //this is the case when only 1 time is selected (dont need to sort)
+      obj = {
+        day: dayjs(slotInfo!.start).format("YYYY.MM.DD"),
+        times: selectedHours,
+      };
     }
     //fetch
-    const obj: AvailableTime = {
-      day: dayjs(slotInfo!.start).format("YYYY.MM.DD"),
-      times: sortedTimes,
-    };
     jwtInterceptor();
-    const res = await axiosPatch(
-      `${LOCAL_URL}/api/trainers/updateAvailability`,
-      obj
-    );
-    console.log(res);
+    try {
+      const res = await axiosPatch(
+        `${LOCAL_URL}/api/trainers/updateAvailability`,
+        obj
+      );
+      if (res.statusCode === 201) {
+        toastSuccess("Availability created");
+        refetch();
+        setSelectedHours([]);
+        handleClose();
+      }
+    } catch (err: any) {
+      console.log(err);
+      if (err.response.data.message) {
+        toastError(err.response.data.message);
+      } else {
+        toastError("Something went wrong, could not save availability!");
+      }
+    }
   };
 
   return (
