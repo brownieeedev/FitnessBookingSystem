@@ -1,7 +1,10 @@
 type Booking = {
+  _id?: string;
   date: string;
   time: string;
-  trainingType: string;
+  paid: boolean;
+  trainingType: "online" | "inperson";
+  location?: string;
   trainingPrice?: number;
 };
 

@@ -1,12 +1,11 @@
 //Components
 import { useEffect, useState } from "react";
 import SidePanel from "../components/sidepanel/SidePanel";
-
 //Pages
 import Dashboard from "./trainer/Dashboard";
 import MyTrainerAccount from "./trainer/MyTrainerAccount";
 import AvailabilityPage from "./trainer/AvailabilityPage";
-
+import UploadVideoPage from "./trainer/UploadVideoPage";
 //Utils
 import { useMount } from "../hooks/useMount";
 import { jwtInterceptor } from "../utils/jwtInterceptor";
@@ -134,10 +133,11 @@ export default function TrainerPage() {
                   <Dashboard
                     panelValues={[
                       (bookings as any).bookingsTodayLength,
+                      (bookings as any).onlineTrainingsLength,
+                      (bookings as any).inpersonTrainingsLength,
                       (bookings as any).bookingsLength,
-                      0,
-                      0,
                     ]}
+                    bookedTrainings={(bookings as any).bookings}
                   />
                 );
               case 2:
@@ -148,6 +148,8 @@ export default function TrainerPage() {
                     bookings={(bookings as any).bookings}
                   />
                 );
+              case 3:
+                return <UploadVideoPage />;
               case 4:
                 return (
                   <MyTrainerAccount

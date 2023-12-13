@@ -17,14 +17,14 @@ SummaryCardProps) => {
   return (
     <motion.div
       animate={{
-        scale: [0.5, 1],
-        y: [-30, 0],
+        scale: [0.9, 1],
+        y: [-3, 0],
         opacity: [0, 1],
 
-        transition: { duration: 0.5 },
+        transition: { duration: 0.2 },
       }}
       className={twMerge(
-        "relative m-3 p-6 flex flex-col items-center overflow-hidden justify-center font-geologica font-extralight  text-white text-xl  bg-gradient-to-br from-teal-400 to-green-400 rounded-[4px] w-[250px] min-h-[130px]",
+        "relative  p-6 flex flex-col items-center overflow-hidden justify-center font-geologica font-extralight  text-white text-xl  bg-gradient-to-br from-teal-400 to-green-400 rounded-[4px] w-[250px] min-h-[130px] lg:w-[342px] lg:text-2xl lg:h-[155px]",
         className
       )}
     >
@@ -51,7 +51,7 @@ export default function TrainerSummaryPanels({
   panelValues,
 }: TrainerSummaryPanelsProps) {
   return (
-    <div className="flex flex-col justify-center md:flex-row">
+    <div className="flex flex-col justify-between md:flex-row">
       <SummaryCard name={panelValues[0].text} numValue={panelValues[0].num} />
       <SummaryCard
         className="bg-gradient-to-r from-fuchsia-600 to-purple-500 "
