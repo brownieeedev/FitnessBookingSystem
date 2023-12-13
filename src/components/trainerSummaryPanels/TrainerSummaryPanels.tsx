@@ -38,26 +38,37 @@ SummaryCardProps) => {
   );
 };
 
-export default function TrainerSummaryPanels() {
+type PanelData = {
+  num: number;
+  text: string;
+};
+
+type TrainerSummaryPanelsProps = {
+  panelValues: [PanelData, PanelData, PanelData, PanelData];
+};
+
+export default function TrainerSummaryPanels({
+  panelValues,
+}: TrainerSummaryPanelsProps) {
   return (
     <div className="flex flex-col justify-center md:flex-row">
-      <SummaryCard name="Personal Trainings" numValue={100} />
+      <SummaryCard name={panelValues[0].text} numValue={panelValues[0].num} />
       <SummaryCard
         className="bg-gradient-to-r from-fuchsia-600 to-purple-500 "
-        name="Customers"
-        numValue={340}
+        name={panelValues[1].text}
+        numValue={panelValues[1].num}
         // delay={0.1}
       />
       <SummaryCard
         className="bg-gradient-to-br from-blue-600 to-blue-400 "
-        name="Return Guests"
-        numValue={33}
+        name={panelValues[2].text}
+        numValue={panelValues[2].num}
         // delay={0.2}
       />
       <SummaryCard
         className="bg-gradient-to-br from-yellow-500 to-rose-400  "
-        name="Videos posted"
-        numValue={1}
+        name={panelValues[3].text}
+        numValue={panelValues[3].num}
         // delay={0.3}
       />
     </div>

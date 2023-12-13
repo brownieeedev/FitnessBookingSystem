@@ -15,7 +15,7 @@ import { toastError } from "../utils/toasts";
 import { LOCAL_URL } from "../utils/urls";
 //Types
 import { TrainerType } from "../types/TrainerType";
-import { Booking } from "../types/BookingType";
+import { BookingResponse } from "../types/BookingType";
 
 const panels: string[] = [
   "Dashboard",
@@ -27,7 +27,7 @@ const panels: string[] = [
 export default function TrainerPage() {
   const [page, setPage] = useState<number>(1);
   const [trainerData, setTrainerData] = useState<TrainerType>();
-  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [bookings, setBookings] = useState<BookingResponse[]>([]);
   const [refetch, setRefetch] = useState(false);
 
   // console.log("trainerData", trainerData);
@@ -130,13 +130,22 @@ export default function TrainerPage() {
           {(() => {
             switch (page) {
               case 1:
-                return <Dashboard />;
+                return (
+                  <Dashboard
+                    panelValues={[
+                      (bookings as any).bookingsTodayLength,
+                      (bookings as any).bookingsLength,
+                      0,
+                      0,
+                    ]}
+                  />
+                );
               case 2:
                 return (
                   <AvailabilityPage
                     refetch={handleRefetchChange}
                     trainerAvailability={trainerData?.available!}
-                    bookings={bookings}
+                    bookings={(bookings as any).bookings}
                   />
                 );
               case 4:
