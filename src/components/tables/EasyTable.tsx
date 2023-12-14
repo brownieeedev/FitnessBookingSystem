@@ -34,9 +34,15 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 type EasyTableProps = {
   bookedTrainings: Booking[];
+  trainingsToday: Booking[];
+  tab: number;
 };
 
-export default function EasyTable({ bookedTrainings }: EasyTableProps) {
+export default function EasyTable({
+  bookedTrainings,
+  trainingsToday,
+  tab,
+}: EasyTableProps) {
   console.log("bookedTrainings", bookedTrainings);
   return (
     <TableContainer component={Paper}>
@@ -51,64 +57,125 @@ export default function EasyTable({ bookedTrainings }: EasyTableProps) {
             <StyledTableCell align="center">Paid</StyledTableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {bookedTrainings
-            ? bookedTrainings.map((booking) => (
-                <StyledTableRow key={booking._id}>
-                  <StyledTableCell
-                    component="th"
-                    scope="row"
-                  >{`Booked training for ${booking.time}`}</StyledTableCell>
-                  {booking.date === dayjs(new Date()).format("YYYY.MM.DD") ? (
-                    <StyledTableCell align="center">
-                      <Chip color="info" label="Today" />
-                    </StyledTableCell>
-                  ) : (
-                    <StyledTableCell align="center">
-                      {booking.date}
-                    </StyledTableCell>
-                  )}
-                  {booking.trainingType === "inperson" ? (
-                    <StyledTableCell align="center">
-                      <Chip
-                        variant="outlined"
-                        color="error"
-                        label={"In Person"}
-                      />
-                    </StyledTableCell>
-                  ) : (
-                    <StyledTableCell align="center">
-                      <Chip
-                        variant="outlined"
-                        color="warning"
-                        label={booking.trainingType}
-                      />
-                    </StyledTableCell>
-                  )}
+        {tab === 1 ? (
+          <TableBody>
+            {bookedTrainings
+              ? bookedTrainings.map((booking) => (
+                  <StyledTableRow key={booking._id}>
+                    <StyledTableCell
+                      component="th"
+                      scope="row"
+                    >{`Booked training for ${booking.time}`}</StyledTableCell>
+                    {booking.date === dayjs(new Date()).format("YYYY.MM.DD") ? (
+                      <StyledTableCell align="center">
+                        <Chip color="info" label="Today" />
+                      </StyledTableCell>
+                    ) : (
+                      <StyledTableCell align="center">
+                        {booking.date}
+                      </StyledTableCell>
+                    )}
+                    {booking.trainingType === "inperson" ? (
+                      <StyledTableCell align="center">
+                        <Chip
+                          variant="outlined"
+                          color="error"
+                          label={"In Person"}
+                        />
+                      </StyledTableCell>
+                    ) : (
+                      <StyledTableCell align="center">
+                        <Chip
+                          variant="outlined"
+                          color="warning"
+                          label={booking.trainingType}
+                        />
+                      </StyledTableCell>
+                    )}
 
-                  {booking.trainingType === "inperson" ? (
+                    {booking.trainingType === "inperson" ? (
+                      <StyledTableCell align="center">
+                        {booking.location}
+                      </StyledTableCell>
+                    ) : (
+                      <StyledTableCell align="center">-</StyledTableCell>
+                    )}
                     <StyledTableCell align="center">
-                      {booking.location}
+                      {booking.trainingPrice}&pound;
                     </StyledTableCell>
-                  ) : (
-                    <StyledTableCell align="center">-</StyledTableCell>
-                  )}
-                  <StyledTableCell align="center">
-                    {booking.trainingPrice}&pound;
-                  </StyledTableCell>
-                  {booking.paid === true ? (
+                    {booking.paid === true ? (
+                      <StyledTableCell align="center">
+                        <Chip color="success" label="Paid" />
+                      </StyledTableCell>
+                    ) : (
+                      <StyledTableCell align="center">
+                        {booking.paid.toString()}
+                      </StyledTableCell>
+                    )}
+                  </StyledTableRow>
+                ))
+              : null}
+          </TableBody>
+        ) : (
+          <TableBody>
+            {trainingsToday
+              ? trainingsToday.map((booking) => (
+                  <StyledTableRow key={booking._id}>
+                    <StyledTableCell
+                      component="th"
+                      scope="row"
+                    >{`Booked training for ${booking.time}`}</StyledTableCell>
+                    {booking.date === dayjs(new Date()).format("YYYY.MM.DD") ? (
+                      <StyledTableCell align="center">
+                        <Chip color="info" label="Today" />
+                      </StyledTableCell>
+                    ) : (
+                      <StyledTableCell align="center">
+                        {booking.date}
+                      </StyledTableCell>
+                    )}
+                    {booking.trainingType === "inperson" ? (
+                      <StyledTableCell align="center">
+                        <Chip
+                          variant="outlined"
+                          color="error"
+                          label={"In Person"}
+                        />
+                      </StyledTableCell>
+                    ) : (
+                      <StyledTableCell align="center">
+                        <Chip
+                          variant="outlined"
+                          color="warning"
+                          label={booking.trainingType}
+                        />
+                      </StyledTableCell>
+                    )}
+
+                    {booking.trainingType === "inperson" ? (
+                      <StyledTableCell align="center">
+                        {booking.location}
+                      </StyledTableCell>
+                    ) : (
+                      <StyledTableCell align="center">-</StyledTableCell>
+                    )}
                     <StyledTableCell align="center">
-                      <Chip color="success" label="Paid" />
+                      {booking.trainingPrice}&pound;
                     </StyledTableCell>
-                  ) : (
-                    <StyledTableCell align="center">
-                      {booking.paid.toString()}
-                    </StyledTableCell>
-                  )}
-                </StyledTableRow>
-              ))
-            : null}
-        </TableBody>
+                    {booking.paid === true ? (
+                      <StyledTableCell align="center">
+                        <Chip color="success" label="Paid" />
+                      </StyledTableCell>
+                    ) : (
+                      <StyledTableCell align="center">
+                        {booking.paid.toString()}
+                      </StyledTableCell>
+                    )}
+                  </StyledTableRow>
+                ))
+              : null}
+          </TableBody>
+        )}
       </Table>
     </TableContainer>
   );

@@ -1,34 +1,40 @@
-import { set } from "date-fns";
 import { useState } from "react";
 
-export default function Tabs() {
-  const [currentState, setCurrentState] = useState<number>(1);
+//Framer
+import { motion } from "framer-motion";
+
+type TabProps = {
+  handleTabChange: (tab: number) => void;
+  tab: number;
+};
+
+export default function Tabs({ handleTabChange, tab }: TabProps) {
   return (
-    <div className="border  border-white rounded-full flex justify-between gap-2 items-center">
-      <div
+    <div className="border border-white rounded-full flex justify-between  items-center">
+      <button
         onClick={() => {
-          setCurrentState(1);
+          handleTabChange(1);
         }}
         className={
-          currentState === 1
-            ? "p-1 pt-[1px] px-5 flex justify-between bg-blue text-white"
-            : "p-1 pt-[1px] px-5 flex justify-between"
+          tab === 1
+            ? "w-[100px]  py-2 rounded-full bg-blue text-white"
+            : "w-[100px]  py-2 rounded-full"
         }
       >
-        <button className="border  p-3 px-8 rounded-full">All</button>
-      </div>
-      <div
+        All
+      </button>
+      <motion.button
         onClick={() => {
-          setCurrentState(2);
+          handleTabChange(2);
         }}
         className={
-          currentState === 2
-            ? "p-1 pt-[1px] px-5 flex justify-between"
-            : "p-1 pt-[1px] px-5 flex justify-between"
+          tab === 2
+            ? "w-[100px]  py-2 rounded-full bg-blue text-white"
+            : "w-[100px]  py-2 rounded-full"
         }
       >
-        <button className="">Today</button>
-      </div>
+        Today
+      </motion.button>
     </div>
   );
 }

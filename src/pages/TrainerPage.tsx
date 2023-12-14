@@ -138,6 +138,7 @@ export default function TrainerPage() {
                       (bookings as any).bookingsLength,
                     ]}
                     bookedTrainings={(bookings as any).bookings}
+                    trainingsToday={(bookings as any).bookingsToday}
                   />
                 );
               case 2:
