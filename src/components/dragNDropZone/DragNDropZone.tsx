@@ -26,7 +26,12 @@ function DragNDropZone() {
               MP4 format
             </p>
           </div>
-          <input id="dropzone-file" type="file" className="hidden" />
+          <input
+            id="dropzone-file"
+            type="file"
+            accept="video/*"
+            className="hidden"
+          />
         </label>
       </div>
     </div>
