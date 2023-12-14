@@ -109,7 +109,7 @@ export default function EasyTable({
                       </StyledTableCell>
                     ) : (
                       <StyledTableCell align="center">
-                        {booking.paid.toString()}
+                        {booking?.paid?.toString()}
                       </StyledTableCell>
                     )}
                   </StyledTableRow>

@@ -21,6 +21,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import EmojiTransportationIcon from "@mui/icons-material/EmojiTransportation";
 import WcIcon from "@mui/icons-material/Wc";
+import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 export {
   ArrowBackIcon,
   ArrowForwardIcon,
@@ -34,4 +35,5 @@ export {
   FitnessCenterIcon,
   EmojiTransportationIcon,
   WcIcon,
+  OndemandVideoIcon,
 };

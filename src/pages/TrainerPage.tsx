@@ -20,6 +20,7 @@ const panels: string[] = [
   "Dashboard",
   "Availability",
   "Upload Video",
+  "Manage Videos",
   "My Account",
 ];
 
@@ -151,7 +152,7 @@ export default function TrainerPage() {
                 );
               case 3:
                 return <UploadVideoPage />;
-              case 4:
+              case 5:
                 return (
                   <MyTrainerAccount
                     trainer={trainerData!}

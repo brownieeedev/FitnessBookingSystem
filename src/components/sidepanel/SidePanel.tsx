@@ -4,6 +4,7 @@ import {
   AccessTimeFilledIcon,
   VideoCallIcon,
   SettingsIcon,
+  OndemandVideoIcon,
 } from "../../utils/icons/muiIcons";
 //Framer
 import { motion } from "framer-motion";
@@ -26,6 +27,7 @@ const sideNavButtons: SideNavButtonProps[] = [
   { text: "Dashboard", icon: <DashboardCustomizeIcon /> },
   { text: "Availability", icon: <AccessTimeFilledIcon /> },
   { text: "Upload Video", icon: <VideoCallIcon /> },
+  { text: "Manage Videos", icon: <OndemandVideoIcon /> },
 ];
 
 export default function SidePanel({
@@ -67,7 +69,7 @@ export default function SidePanel({
       </div>
       <div
         onClick={() => {
-          changePage(4);
+          changePage(5);
         }}
         className="absolute bottom-0 w-full flex items-center gap-2 p-4 cursor-pointer hover:bg-gray-700"
       >
