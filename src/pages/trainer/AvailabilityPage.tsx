@@ -5,8 +5,8 @@ import ColorSignsForCalendar from "../../components/calendar/ColorSignsForCalend
 import { AvailableTime } from "../../types/TrainerType";
 import { Booking } from "../../types/BookingType";
 type Props = {
-  trainerAvailability: AvailableTime[];
-  bookings: Booking[];
+  trainerAvailability?: AvailableTime[];
+  bookings?: Booking[];
   refetch: () => void;
 };
 

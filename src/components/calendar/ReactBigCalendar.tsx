@@ -23,8 +23,8 @@ import { AvailableTime } from "../../types/TrainerType";
 import { Booking } from "../../types/BookingType";
 
 type BigCalendarProps = {
-  trainerAvailability: AvailableTime[];
-  bookings: Booking[];
+  trainerAvailability?: AvailableTime[];
+  bookings?: Booking[];
   refetch: () => void;
 };
 
@@ -66,9 +66,10 @@ export default function ReactBigCalendar({
   };
 
   const createEventsFromAvailability = (
-    trainerAvailability: AvailableTime[]
+    trainerAvailability: AvailableTime[] | undefined
   ): void => {
     //AvailableTime
+    if (!trainerAvailability) return;
     const events: Event[] = trainerAvailability.flatMap((availableObj) =>
       availableObj.times.map((time) => ({
         title: <p className="p-1">{`Personal Training ${time}`}</p>,
@@ -77,7 +78,7 @@ export default function ReactBigCalendar({
       }))
     );
     //Booked trainings
-    const bookedEvents: Event[] = bookings.map((booking) => {
+    const bookedEvents: Event[] | undefined = bookings?.map((booking) => {
       return {
         title: (
           <div className="w-full- h-full">
@@ -88,7 +89,7 @@ export default function ReactBigCalendar({
         end: stringToDateConverter(`${booking.date}.${booking.time}`, 1),
       };
     });
-    setEvents([...events, ...bookedEvents]);
+    if (bookedEvents) setEvents([...events, ...bookedEvents]);
   };
 
   const onEventResize: withDragAndDropProps["onEventResize"] = (data) => {
@@ -155,5 +156,5 @@ const localizer = dateFnsLocalizer({
   getDay,
   locales,
 });
-//@ts-ignore
+
 const DnDCalendar = withDragAndDrop(Calendar);

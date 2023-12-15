@@ -6,6 +6,7 @@ import Dashboard from "./trainer/Dashboard";
 import MyTrainerAccount from "./trainer/MyTrainerAccount";
 import AvailabilityPage from "./trainer/AvailabilityPage";
 import UploadVideoPage from "./trainer/UploadVideoPage";
+import ManageVideosPage from "./trainer/ManageVideosPage";
 //Utils
 import { useMount } from "../hooks/useMount";
 import { jwtInterceptor } from "../utils/jwtInterceptor";
@@ -27,7 +28,7 @@ const panels: string[] = [
 export default function TrainerPage() {
   const [page, setPage] = useState<number>(1);
   const [trainerData, setTrainerData] = useState<TrainerType>();
-  const [bookings, setBookings] = useState<BookingResponse[]>([]);
+  const [bookings, setBookings] = useState<BookingResponse>();
   const [refetch, setRefetch] = useState(false);
 
   // console.log("trainerData", trainerData);
@@ -133,25 +134,27 @@ export default function TrainerPage() {
                 return (
                   <Dashboard
                     panelValues={[
-                      (bookings as any).bookingsTodayLength,
-                      (bookings as any).onlineTrainingsLength,
-                      (bookings as any).inpersonTrainingsLength,
-                      (bookings as any).bookingsLength,
+                      bookings?.bookingsTodayLength,
+                      bookings?.onlineTrainingsLength,
+                      bookings?.inpersonTrainingsLength,
+                      bookings?.bookingsLength,
                     ]}
-                    bookedTrainings={(bookings as any).bookings}
-                    trainingsToday={(bookings as any).bookingsToday}
+                    bookedTrainings={bookings?.bookings}
+                    trainingsToday={bookings?.bookingsToday}
                   />
                 );
               case 2:
                 return (
                   <AvailabilityPage
                     refetch={handleRefetchChange}
-                    trainerAvailability={trainerData?.available!}
-                    bookings={(bookings as any).bookings}
+                    trainerAvailability={trainerData?.available}
+                    bookings={bookings?.bookings}
                   />
                 );
               case 3:
                 return <UploadVideoPage />;
+              case 4:
+                return <ManageVideosPage />;
               case 5:
                 return (
                   <MyTrainerAccount

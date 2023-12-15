@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 type SummaryCardProps = {
   name: string;
-  numValue: number;
+  numValue?: number;
   className?: string;
   delay?: number;
 };
@@ -39,7 +39,7 @@ SummaryCardProps) => {
 };
 
 type PanelData = {
-  num: number;
+  num?: number;
   text: string;
 };
 

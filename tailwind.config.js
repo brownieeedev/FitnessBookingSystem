@@ -19,6 +19,7 @@ export default {
         mygray: "D3D8E8",
         darkgray: "#273036",
         blue: "#0288d1",
+        purple: "#6A64F1",
       },
       fontFamily: {
         fira: ["Fira Code", "ui-sans-serif", "system-ui"],

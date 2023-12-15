@@ -2,21 +2,39 @@ import { useState } from "react";
 
 const trainingTypes = ["Samba", "Salsa", "Bachata", "Kizomba", "Zouk"];
 
-export default function MultiSelect() {
+type MultiSelectProps = {
+  setChoosedKeywords: (choosedOptions: string[]) => void;
+  choosedTypes: string[];
+};
+
+export default function MultiSelect({
+  setChoosedKeywords,
+  choosedTypes,
+}: MultiSelectProps) {
   const [showElements, setShowElements] = useState(false);
-  const [choosedTypes, setChoosedTypes] = useState<string[]>([]);
+  console.log(choosedTypes);
+
   return (
     <div className="w-full">
       <div className="flex flex-col items-center relative">
         <div className="w-full">
-          <div className="my-2 p-1 flex border border-gray-200 bg-white rounded ">
-            <div className="flex flex-auto flex-wrap">
+          <div className="my-2 p-1 flex border border-gray-200 bg-white rounded-md">
+            <div className="flex flex-auto flex-wrap ">
               {choosedTypes.map((trainingType) => (
                 <div className="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-teal-700 bg-teal-100 border border-teal-300 ">
                   <div className="text-xs font-normal leading-none max-w-full flex-initial">
-                    {trainingType}
+                    <p className="cursor-default">{trainingType}</p>
                   </div>
-                  <div className="flex flex-auto flex-row-reverse">
+                  <div
+                    //Delete X Icon inside CHIP
+                    onClick={() => {
+                      const newChoosedTypes: string[] = [
+                        ...choosedTypes,
+                      ].filter((type) => type !== trainingType);
+                      setChoosedKeywords(newChoosedTypes);
+                    }}
+                    className="flex flex-auto flex-row-reverse"
+                  >
                     <div>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -37,10 +55,12 @@ export default function MultiSelect() {
                   </div>
                 </div>
               ))}
-              <div className="flex-1">
+              <div className="flex-1 focus:shadow-md">
                 <input
-                  placeholder=""
-                  className="bg-transparent p-1 px-2 appearance-none outline-none h-full w-full text-gray-800"
+                  placeholder={
+                    choosedTypes.length === 0 ? "Select or type keywords" : ""
+                  }
+                  className="group bg-transparent  py-3 px-6 appearance-none outline-none h-full w-full text-gray-800 "
                 />
               </div>
             </div>
@@ -73,7 +93,15 @@ export default function MultiSelect() {
         {showElements
           ? trainingTypes.map((trainingType) => {
               return (
-                <div className="cursor-pointer border  w-full border-gray-100 border-b hover:bg-teal-100">
+                <div
+                  onClick={() => {
+                    if (choosedTypes.some((type) => type === trainingType))
+                      return;
+                    const newChoosedTypes = [...choosedTypes, trainingType];
+                    setChoosedKeywords(newChoosedTypes);
+                  }}
+                  className="cursor-pointer  border  w-full border-gray-200 border-b hover:bg-teal-100"
+                >
                   <div className="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative border-teal-600">
                     <div className="w-full items-center flex">
                       <div className="mx-2 leading-6  ">{trainingType}</div>

@@ -13,6 +13,8 @@ type BookingResponse = {
   bookingsToday: Booking[];
   bookingsLength?: number;
   bookingsTodayLength?: number;
+  onlineTrainingsLength?: number;
+  inpersonTrainingsLength?: number;
 };
 
 export type { Booking, BookingResponse };

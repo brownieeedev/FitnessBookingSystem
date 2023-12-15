@@ -33,8 +33,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 type EasyTableProps = {
-  bookedTrainings: Booking[];
-  trainingsToday: Booking[];
+  bookedTrainings?: Booking[];
+  trainingsToday?: Booking[];
   tab: number;
 };
 
