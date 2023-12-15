@@ -13,6 +13,7 @@ export default function PersonalOnline() {
         If you book a training in the morning you might get a trainer for the
         evening!
       </p>
+
       <div className="mt-8">
         <h2 className="text-center font-bold text-2xl">Choose a date</h2>
       </div>
