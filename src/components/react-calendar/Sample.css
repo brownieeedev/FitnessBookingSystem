@@ -35,7 +35,8 @@
   flex-direction: column;
   flex-grow: 100;
   align-items: stretch;
-  padding-top: 1em;
+  border: 1px solid #a0a096;
+  border-radius: 3px;
 }
 
 .Sample__container__content .react-calendar {
