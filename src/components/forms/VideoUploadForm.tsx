@@ -1,12 +1,21 @@
 // import Tabs from "../tabs/Tabs";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import MultiSelect from "../inputs/MultiSelect";
 import { useState } from "react";
+
+//Components
+import MultiSelect from "../inputs/MultiSelect";
+import LinearLoader from "../loaders/LinearLoader";
+
+//Utils
+import { LOCAL_URL } from "../../utils/urls";
+import { axiosPost } from "../../utils/axiosFetches";
+import { toastError, toastSuccess } from "../../utils/toasts";
+import { jwtInterceptor } from "../../utils/jwtInterceptor";
 
 const initialValues = {
   videoTitle: "",
-  radioGroup: "",
+  introduction: "",
   selectedOptions: [],
 };
 
@@ -30,13 +39,31 @@ export default function VideoUploadForm() {
               .required("Required!")
               .max(50, "Too Long Title!")
               .min(4, "Too Short Title!"),
-            radioGroup: Yup.string().required("Choose a video type!"),
+            introduction: Yup.string().required("Choose a video type!"),
           })}
-          onSubmit={() => {
-            console.log("submitted");
+          onSubmit={async (values, formik) => {
+            const obj = { ...values, trainingTypes: selectedOptions };
+            //fetch
+            try {
+              jwtInterceptor();
+              const res = await axiosPost(
+                `${LOCAL_URL}/api/video/uploadvideo`,
+                obj
+              );
+              console.log(res);
+              if (res.statusCode === 201) {
+                toastSuccess("Video uploaded successfully!");
+                formik.resetForm();
+                setSelectedOptions([]);
+                setMultiSelectTouched(false);
+              }
+            } catch (error) {
+              toastError("Something went wrong, could not upload the video!");
+              console.error(error);
+            }
           }}
         >
-          {() => (
+          {(formik) => (
             <Form>
               <h2 className="mb-4 text-center block text-2xl font-medium text-[#07074D]">
                 Video Data
@@ -49,7 +76,7 @@ export default function VideoUploadForm() {
                   <div className="flex items-center">
                     <Field
                       type="radio"
-                      name="radioGroup"
+                      name="introduction"
                       id="radioButton1"
                       className="h-5 w-5"
                       value="Introduction Video"
@@ -61,7 +88,7 @@ export default function VideoUploadForm() {
                   <div className="flex items-center">
                     <Field
                       type="radio"
-                      name="radioGroup"
+                      name="introduction"
                       id="radioButton2"
                       className="h-5 w-5"
                       value="Training video"
@@ -72,7 +99,7 @@ export default function VideoUploadForm() {
                   </div>
                 </div>
               </div>
-              <ErrorMessage name="radioGroup">
+              <ErrorMessage name="introduction">
                 {(msg) => <div className="text-red-400">{msg}</div>}
               </ErrorMessage>
               <div className="my-5">
@@ -109,9 +136,9 @@ export default function VideoUploadForm() {
                     setMultiSelectTouched(true);
                   }}
                   type="submit"
-                  className="w-full hover:shadow-form rounded-md bg-blue py-3 px-8 text-center text-base font-semibold text-white outline-none"
+                  className="w-full min-h-[48px] hover:shadow-form rounded-md bg-blue py-3 px-8 text-center text-base font-semibold text-white outline-none"
                 >
-                  Upload for review
+                  {formik.isSubmitting ? <LinearLoader /> : "Upload for review"}
                 </button>
               </div>
             </Form>
