@@ -9,6 +9,7 @@ export type ShortTrainerType = {
   trainingTypes: string[];
   links: Links[];
   profilePicture: string;
+  delay?: number;
 };
 
 export type AvailableTime = {

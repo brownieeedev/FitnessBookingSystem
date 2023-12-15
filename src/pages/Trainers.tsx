@@ -23,10 +23,10 @@ export default function Trainers() {
 
   return (
     <>
-      <h2 className="text-3xl font-semibold text-black text-center m-4">
+      <h2 className="text-3xl font-inter font-bold text-darkgray text-center m-4">
         Our Trainers
       </h2>
-      <div className="flex">
+      <div className="middlesm:flex-row middlesm:flex-wrap middlesm:justify-center flex flex-col items-center flex-wrap gap-3">
         {trainers
           ? trainers.map((trainer, index) => (
               <TailwindCard
@@ -35,6 +35,7 @@ export default function Trainers() {
                 firstname={trainer.firstname}
                 trainingTypes={trainer.trainingTypes}
                 links={trainer.links}
+                delay={index * 0.2}
               />
             ))
           : null}

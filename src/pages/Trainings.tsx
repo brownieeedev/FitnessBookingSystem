@@ -1,11 +1,16 @@
+//Components
 import HomeCard from "../components/homeCard/HomeCard";
+import ChooseCards from "../components/cards/ChooseCards";
 
 export default function Trainings() {
   return (
     <div>
-      <h1 className="text-darkgray text-center text-2xl">Choose a training</h1>
+      <h2 className="text-3xl font-inter font-bold text-darkgray text-center m-4">
+        Choose a training
+      </h2>
       <div className="flex justify-center gap-9">
-        <HomeCard
+        <ChooseCards />
+        {/* <HomeCard
           className=""
           title="Personal training"
           description="Personal training either online or in person"
@@ -31,7 +36,7 @@ export default function Trainings() {
             />
           }
           buttonText="See Classes"
-        />
+        /> */}
       </div>
     </div>
   );

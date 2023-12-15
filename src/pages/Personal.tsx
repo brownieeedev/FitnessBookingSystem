@@ -3,7 +3,9 @@ import HomeCard from "../components/homeCard/HomeCard";
 export default function Personal() {
   return (
     <div>
-      <h1 className="text-darkgray text-center text-2xl">Choose a training</h1>
+      <h2 className="text-3xl font-inter font-bold text-darkgray text-center m-4">
+        Choose a training
+      </h2>
       <div className="flex justify-center gap-9">
         <HomeCard
           className=""

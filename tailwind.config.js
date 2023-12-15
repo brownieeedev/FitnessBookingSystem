@@ -4,6 +4,7 @@ export default {
   theme: {
     screens: {
       extrasm: "390px",
+      middlesm: "515px",
       sm: "640px",
       md: "800px",
       lg: "1024px",
@@ -31,6 +32,7 @@ export default {
         nunito: ["Nunito Sans", "ui-sans-serif", "system-ui"],
         open: ["Open Sans", "ui-sans-serif", "system-ui"],
         poppins: ["Poppins", "ui-sans-serif", "system-ui"],
+        mona: ["Mona Sans", "ui-sans-serif", "system-ui"],
       },
     },
   },
