@@ -3,7 +3,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import MultiSelect from "../inputs/MultiSelect";
 import { useState } from "react";
-import { set } from "date-fns";
 
 const initialValues = {
   videoTitle: "",
@@ -37,7 +36,7 @@ export default function VideoUploadForm() {
             console.log("submitted");
           }}
         >
-          {(formik) => (
+          {() => (
             <Form>
               <h2 className="mb-4 text-center block text-2xl font-medium text-[#07074D]">
                 Video Data
