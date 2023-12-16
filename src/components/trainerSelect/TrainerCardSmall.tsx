@@ -1,7 +1,7 @@
 //Framer
 import { motion } from "framer-motion";
 //Mui Icons
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { CheckCircleIcon, CheckIcon } from "../../utils/icons/muiIcons";
 //Types
 import { TrainerType } from "../../types/TrainerType";
 
@@ -38,23 +38,35 @@ function TrainerCardSmall({
       }}
       className={
         choosedTrainer?.firstname === name
-          ? "cursor-pointer m-2 flex flex-col justify-between rounded-xl  bg-[#3dff2b4b] bg-clip-border text-gray-700 shadow-md w-[200px] h-[250px]"
-          : "cursor-pointer m-2 flex flex-col justify-between rounded-xl  bg-white bg-clip-border text-gray-700 shadow-md w-[200px] h-[250px]"
+          ? "cursor-pointer m-2 flex flex-col justify-between rounded-xl  bg-[#32ff2b6c] bg-clip-border text-black shadow-md w-[200px] h-[250px]"
+          : "cursor-pointer m-2 flex flex-col justify-between rounded-lg  bg-darkgray  text-offwhite shadow-md w-[200px] h-[250px]"
       }
     >
       <div className="flex  items-center justify-end">
-        <CheckCircleOutlineIcon sx={{ color: "#fff", fontSize: "32px" }} />
+        {choosedTrainer?.firstname === name ? (
+          <CheckCircleIcon
+            sx={{
+              m: "4px",
+              color: "#6aed29", // Green color for the circle
+              backgroundColor: "white", // White background for the check icon
+              borderRadius: "50%", // Make the background a circle
+              display: "inline-block", // Ensure the container only takes the space needed Adjust padding as needed
+            }}
+          />
+        ) : (
+          <CheckCircleIcon sx={{ color: "transparent", fontSize: "32px" }} />
+        )}
       </div>
       <div className="flex justify-center">
-        <div className="relative mx-4 mt-4 h-[130px] w-[130px] overflow-hidden rounded-full bg-white bg-clip-border text-gray-700 shadow-lg">
+        <div className="relative mx-4 mt-4 h-[130px] w-[130px] overflow-hidden rounded-full bg-white bg-clip-border  shadow-lg">
           {image}
         </div>
       </div>
-      <div className="text-center mb-">
-        <h4 className="mb-1 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+      <div className="text-center mb-2">
+        <h4 className="mb-1 block font-sans text-xl font-semibold leading-snug tracking-normal  antialiased">
           {name}
         </h4>
-        <p className="block bg-gradient-to-tr from-pink-600 to-pink-400 bg-clip-text font-sans text-sm font-medium leading-relaxed text-transparent antialiased">
+        <p className="block text-pink-600 font-sans text-sm font-normal leading-relaxed text-transparent antialiased">
           Personal Trainer
         </p>
       </div>

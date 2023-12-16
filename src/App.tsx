@@ -48,12 +48,8 @@ function App() {
                 <Route path="/trainings" element={<Trainings />} />
                 <Route path="/trainings/personal" element={<Personal />} />
                 <Route path="/signup" element={<SignUpPage />} />
-                <Route
-                  path="/trainings/personal/online"
-                  element={<PersonalOnline />}
-                />
+                <Route path="/trainings/online" element={<PersonalOnline />} />
               </Route>
-
               <Route path="/mytrainerpage" element={<TrainerPage />} />
               <Route
                 path="/login"

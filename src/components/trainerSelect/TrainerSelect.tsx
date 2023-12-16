@@ -128,7 +128,7 @@ export default function TrainerSelect() {
   }, [page, choosedTrainer, date, time, isLoggedIn]);
 
   return (
-    <div className="select-none bg-slate-50 font-inter font-bold w-[85%] flex border bg-transparent min-h-[800px]  max-w-[1200px] ">
+    <div className="select-none font-inter font-bold w-[85%] flex border bg-transparent min-h-[800px]  max-w-[1200px] ">
       <div //Sidepanel
         className="w-[35%] h-auto flex items-center justify-center left-0 bg-darkgray"
       >
@@ -150,7 +150,7 @@ export default function TrainerSelect() {
           ]}
         />
       </div>
-      <div className="relative  bg-slate-100 flex flex-col w-full">
+      <div className="relative  bg-white flex flex-col w-full">
         <h2 className="text-center m-5 mb-0 text-2xl">
           {todoLabels[page - 1]}
         </h2>
@@ -185,7 +185,7 @@ export default function TrainerSelect() {
                     handleDateChange={handleDateChange}
                     date={date}
                     choosedTrainer={choosedTrainer!}
-                    image={choosedTrainer?.profilePicture!}
+                    image={choosedTrainer.profilePicture}
                   />
                 );
               case 3:
