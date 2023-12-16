@@ -66,7 +66,7 @@ function TrainerCardSmall({
         <h4 className="mb-1 block font-sans text-xl font-semibold leading-snug tracking-normal  antialiased">
           {name}
         </h4>
-        <p className="block text-pink-600 font-sans text-sm font-normal leading-relaxed text-transparent antialiased">
+        <p className="block text-[#f171b3] font-sans text-sm font-normal leading-relaxed text-transparent antialiased">
           Personal Trainer
         </p>
       </div>

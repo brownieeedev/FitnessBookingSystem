@@ -1,3 +1,5 @@
+//Framer
+import { motion } from "framer-motion";
 //Components
 import HomeCard from "../components/homeCard/HomeCard";
 import ChooseCards from "../components/cards/ChooseCards";
@@ -5,9 +7,12 @@ import ChooseCards from "../components/cards/ChooseCards";
 export default function Trainings() {
   return (
     <div>
-      <h2 className="text-3xl font-inter font-bold text-darkgray text-center m-4">
+      <motion.h2
+        animate={{ opacity: [0, 1], transition: { duration: 0.8, delay: 0.4 } }}
+        className="text-3xl font-inter font-bold text-darkgray text-center m-4"
+      >
         Choose a training
-      </h2>
+      </motion.h2>
       <div className="flex justify-center gap-9">
         <ChooseCards />
         {/* <HomeCard

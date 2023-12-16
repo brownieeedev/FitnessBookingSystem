@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 //MUI Icons
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -45,7 +44,7 @@ export default function BottomNavigation({
                 onClick={() => {
                   handleClick("previous");
                 }}
-                className="flex items-center font-inter bg-blue-500 text-white p-4 pt-2 pb-2 rounded-full ml-3 hover:bg-opacity-80  font-semibold tracking-wide mr-auto text-lg"
+                className="flex items-center font-inter bg-blue text-white p-4 pt-2 pb-2 rounded-full ml-3 hover:bg-opacity-80  font-semibold tracking-wide mr-auto text-lg"
               >
                 <ArrowBackIcon /> {previousBtn.text}
               </button>
@@ -55,7 +54,7 @@ export default function BottomNavigation({
                 onClick={() => {
                   handleClick("next");
                 }}
-                className="flex items-center  font-inter bg-blue-500 text-white p-4 pt-2 pb-2 rounded-full mr-3 hover:bg-opacity-80  font-semibold tracking-wide ml-auto text-lg"
+                className="flex items-center  font-inter bg-blue text-white p-4 pt-2 pb-2 rounded-full mr-3 hover:bg-opacity-80  font-semibold tracking-wide ml-auto text-lg"
               >
                 {nextBtn.text} <ArrowForwardIcon />
               </button>

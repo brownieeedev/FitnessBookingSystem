@@ -5,6 +5,7 @@ import VerticalStepper from "../verticalStepper/VerticalStepper";
 import Confirm from "../bookConfirm.tsx/Confirm";
 import TrainerCardSmall from "./TrainerCardSmall";
 import CalendarPage from "../calendar/CalendarPage";
+import LinearLoader from "../loaders/LinearLoader";
 //Utils
 import { useMount } from "../../hooks/useMount";
 import { toastError } from "../../utils/toasts";
@@ -110,7 +111,10 @@ export default function TrainerSelect() {
   useEffect(() => {
     if (page === 1) {
       dispatch(disablePrevious());
-      if (choosedTrainer?.firstname !== "") {
+      if (
+        typeof choosedTrainer?.firstname === "string" &&
+        choosedTrainer?.firstname !== ""
+      ) {
         dispatch(allowNext());
       }
     } else if (page === 2) {
@@ -159,24 +163,28 @@ export default function TrainerSelect() {
           {(() => {
             switch (page) {
               case 1:
-                return trainers.map((trainer, index) => (
-                  <div key={index} className="flex flex-wrap">
-                    <TrainerCardSmall
-                      displayContactIcons={false}
-                      setChoosedTrainer={handleTrainerSelect}
-                      choosedTrainer={choosedTrainer}
-                      name={trainer.firstname}
-                      delay={index * 0.2}
-                      image={
-                        <img
-                          className="s object-cover w-full h-full "
-                          src={trainer.profilePicture}
-                          alt="trainerpicture"
-                        />
-                      }
-                    />
-                  </div>
-                ));
+                return trainers ? (
+                  trainers.map((trainer, index) => (
+                    <div key={index} className="flex flex-wrap">
+                      <TrainerCardSmall
+                        displayContactIcons={false}
+                        setChoosedTrainer={handleTrainerSelect}
+                        choosedTrainer={choosedTrainer}
+                        name={trainer.firstname}
+                        delay={index * 0.2}
+                        image={
+                          <img
+                            className="s object-cover w-full h-full "
+                            src={trainer.profilePicture}
+                            alt="trainerpicture"
+                          />
+                        }
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <LinearLoader />
+                );
               case 2:
                 return (
                   <CalendarPage
