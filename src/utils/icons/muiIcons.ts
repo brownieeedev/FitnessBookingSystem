@@ -7,9 +7,12 @@ import CheckIcon from "@mui/icons-material/Check";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 //Close
 import CloseIcon from "@mui/icons-material/Close";
+
+//Time related
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 //Icons for trainer SIDENAV
 import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
-import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
 //Settings
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -38,4 +41,5 @@ export {
   CheckCircleOutlineIcon,
   CheckCircleIcon,
   CheckIcon,
+  CalendarMonthIcon,
 };

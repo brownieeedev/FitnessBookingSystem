@@ -1,5 +1,5 @@
 //Packages
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 //Prime React
 import { PrimeReactProvider } from "primereact/api";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
@@ -27,6 +27,8 @@ export default function PrimeCalendar({ handleDateChange, date }: Props) {
       <Calendar
         inline
         name="date"
+        className="border border-gray-300 rounded-lg p-2 p-datepicker-today:bg-red-200"
+        panelClassName="bg-white"
         showButtonBar={false}
         value={date}
         minDate={new Date()}

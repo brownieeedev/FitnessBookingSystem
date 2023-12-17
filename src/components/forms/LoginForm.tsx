@@ -10,7 +10,6 @@ import { login } from "../../redux/slices/authSlice";
 
 //Utils
 import { axiosPostLoginAndSignup } from "../../utils/axiosFetches";
-import { LOCAL_URL } from "../../utils/urls";
 import { useNavigate } from "react-router-dom";
 
 type Props = {

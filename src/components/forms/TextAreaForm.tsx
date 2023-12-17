@@ -1,4 +1,4 @@
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 //Utils
@@ -7,19 +7,20 @@ import { toastError, toastSuccess } from "../../utils/toasts";
 import { LOCAL_URL } from "../../utils/urls";
 import { jwtInterceptor } from "../../utils/jwtInterceptor";
 
+//Prime
+import { Editor } from "primereact/editor";
+
 type TextAreaFormProps = {
   rows?: number;
   cols?: number;
   initialValues?: { textarea: string };
-  finishEditingIntroduction: (newIntroduction: string) => void;
+  finishEditingIntroduction: (ne0wIntroduction: string) => void;
 };
 
 //TODO:
 //handle line breaks to save as well
 
 function TextAreaForm({
-  rows = 8,
-  cols = 80,
   initialValues = { textarea: "" },
   finishEditingIntroduction,
 }: TextAreaFormProps) {
@@ -54,12 +55,20 @@ function TextAreaForm({
     >
       {(formik) => (
         <Form>
-          <Field
+          {/* <Field
             className="text-lg"
             name="textarea"
             as="textarea"
             cols={cols}
             rows={rows}
+          /> */}
+          <Editor
+            name="textarea"
+            value={formik.values.textarea}
+            onTextChange={(e) => {
+              formik.setFieldValue("textarea", e.textValue);
+            }}
+            style={{ height: "320px" }}
           />
           {formik.touched.textarea && formik.errors.textarea ? (
             <div className="text-red-500">{formik.errors.textarea}</div>

@@ -3,7 +3,16 @@ import * as Yup from "yup";
 
 import CircularProgress from "@mui/material/CircularProgress";
 
+//Redux
+import { useAppDispatch } from "../../redux/hooks";
+import { login } from "../../redux/slices/authSlice";
+
+//Utils
+import { axiosPostLoginAndSignup } from "../../utils/axiosFetches";
+import { LOCAL_URL } from "../../utils/urls";
+
 export default function LoginForm3() {
+  const dispatch = useAppDispatch();
   return (
     <div>
       <Formik
@@ -21,35 +30,46 @@ export default function LoginForm3() {
             .min(8, "Must be 8 characters or more!")
             .required("Required!"),
         })}
-        onSubmit={async (values, actions) => {
-          alert("submitted");
+        onSubmit={async (values) => {
+          //fetch
+          const res = await axiosPostLoginAndSignup(
+            `${LOCAL_URL}/api/users/login`,
+            values,
+            false,
+            "Successfully logged in!",
+            "Something went wrong when logging in!"
+          );
+          //handle success on signup
+          if (res.token) {
+            localStorage.setItem("token", res.token);
+            dispatch(login());
+          }
+          // if (enableNavigate && res.navigateTo) navigate(res.navigateTo);
         }}
       >
         {(formik) => (
           <Form className="flex flex-col space-y-3">
-            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+            <div className="flex flex-col">
               <Field
                 placeholder="Enter email..."
-                className="pl-2 w-full outline-none border-none flex  px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"
+                className="flex px-3 py-2 md:px-4 md:py-3 border border-gray-400 rounded-lg font-medium placeholder:font-normal"
                 name="email"
                 type="email"
               />
-              <ErrorMessage
-                name="email"
-                className="text-red-500 ml-auto font-normal text-sm"
-              />
+              <ErrorMessage name="email">
+                {(msg) => <div className="text-red-400">{msg}</div>}
+              </ErrorMessage>
             </div>
             <div className="flex flex-col">
               <Field
                 placeholder="Enter password..."
-                className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"
+                className="flex px-3 py-2 md:px-4 md:py-3 border border-gray-400 rounded-lg font-medium placeholder:font-normal"
                 name="pass"
                 type="password"
               />
-              <ErrorMessage
-                name="pass"
-                className="text-red-500 ml-auto font-normal text-sm"
-              />
+              <ErrorMessage name="pass">
+                {(msg) => <div className="text-red-400">{msg}</div>}
+              </ErrorMessage>
             </div>
             <div className="flex justify-center">
               <button

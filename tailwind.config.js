@@ -22,6 +22,7 @@ export default {
         blue: "#0288d1",
         purple: "#6A64F1",
         offwhite: "#F3F4F6",
+        yellow: "#ffe95c",
       },
       fontFamily: {
         fira: ["Fira Code", "ui-sans-serif", "system-ui"],

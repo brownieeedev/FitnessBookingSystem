@@ -23,7 +23,7 @@ const style = {
   bgcolor: "background.paper",
   borderRadius: "18px",
   boxShadow: 24,
-  pt: 2,
+  p: 5,
 };
 
 function LoginModal({ open, handleClose }: LoginModalProps) {
@@ -39,7 +39,7 @@ function LoginModal({ open, handleClose }: LoginModalProps) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Box sx={{ p: 2, pb: 0 }}>
+          <Box sx={{ p: 2 }}>
             <Typography
               sx={{
                 textAlign: "center",
@@ -53,7 +53,9 @@ function LoginModal({ open, handleClose }: LoginModalProps) {
               Log in to your account!
             </Typography>
           </Box>
-          <LoginForm3 />
+          <Box>
+            <LoginForm3 />
+          </Box>
         </Box>
       </Modal>
     </div>

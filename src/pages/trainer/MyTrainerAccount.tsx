@@ -4,7 +4,6 @@ import {
   CloseIcon,
   EmailIcon,
   PhoneIcon,
-  FitnessCenterIcon,
   EmojiTransportationIcon,
   WcIcon,
 } from "../../utils/icons/muiIcons";
@@ -19,7 +18,6 @@ import dayjs from "dayjs";
 import TextAreaForm from "../../components/forms/TextAreaForm";
 //Types
 import { TrainerType } from "../../types/TrainerType";
-import Email from "@mui/icons-material/Email";
 type TrainerAccountProps = {
   trainer: TrainerType;
   handleTrainerDataChange: (newIntroduction?: string) => void;
@@ -34,7 +32,6 @@ export default function MyTrainerAccount({
   handleTrainerDataChange,
 }: TrainerAccountProps) {
   const [editIntroduction, setEditIntroduction] = useState<boolean>(false);
-  const [introductionValue, setIntroductionValue] = useState<string>();
 
   const handleCloseTextareaOnSuccess = (newIntroduction: string): void => {
     handleTrainerDataChange(newIntroduction);
